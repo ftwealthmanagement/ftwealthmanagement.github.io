@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>精选基金详解 · 富途大象财富</title>
+<style>
+/* ============ 设计令牌（与主报告一致）============ */
+:root{
+  color-scheme: light;
+  --surface-1:#fcfcfb; --plane:#f9f9f7;
+  --ink-1:#0b0b0b; --ink-2:#52514e; --ink-3:#898781;
+  --grid:#e1e0d9; --axis:#c3c2b7; --border:rgba(11,11,11,.10);
+  --c-us:#2a78d6; --c-cn:#eb6834; --c-jp:#1baf7a; --c-eu:#eda100;
+  --c-pos:#2a78d6; --c-neg:#e34948;
+  --good:#006300; --bad:#c62d2d;
+  --chip:#f0efec; --chip-ink:#52514e;
+  --wash:rgba(11,11,11,.04);
+}
+@media (prefers-color-scheme: dark){
+  :root:where(:not([data-theme="light"])){
+    color-scheme: dark;
+    --surface-1:#1a1a19; --plane:#0d0d0d;
+    --ink-1:#ffffff; --ink-2:#c3c2b7; --ink-3:#898781;
+    --grid:#2c2c2a; --axis:#383835; --border:rgba(255,255,255,.10);
+    --c-us:#3987e5; --c-cn:#d95926; --c-jp:#199e70; --c-eu:#c98500;
+    --c-pos:#3987e5; --c-neg:#e66767;
+    --good:#0ca30c; --bad:#e66767;
+    --chip:#262625; --chip-ink:#c3c2b7;
+    --wash:rgba(255,255,255,.05);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --surface-1:#1a1a19; --plane:#0d0d0d;
+  --ink-1:#ffffff; --ink-2:#c3c2b7; --ink-3:#898781;
+  --grid:#2c2c2a; --axis:#383835; --border:rgba(255,255,255,.10);
+  --c-us:#3987e5; --c-cn:#d95926; --c-jp:#199e70; --c-eu:#c98500;
+  --c-pos:#3987e5; --c-neg:#e66767;
+  --good:#0ca30c; --bad:#e66767;
+  --chip:#262625; --chip-ink:#c3c2b7;
+  --wash:rgba(255,255,255,.05);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;
+  background:var(--plane); color:var(--ink-1); line-height:1.6; font-size:15px;
+}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+a{color:var(--c-us)}
+small{color:var(--ink-3)}
+
+/* ============ 导航 ============ */
+nav{
+  position:sticky;top:0;z-index:50;background:var(--surface-1);
+  border-bottom:1px solid var(--border);
+}
+nav .wrap{display:flex;align-items:center;gap:4px;height:52px}
+nav .brand{font-weight:600;font-size:15px;margin-right:auto;white-space:nowrap}
+nav a.link{
+  color:var(--ink-2);text-decoration:none;font-size:13.5px;padding:6px 10px;border-radius:6px;
+}
+nav a.link:hover{background:var(--wash);color:var(--ink-1)}
+#themeBtn, #pdfBtn{
+  border:1px solid var(--border);background:var(--surface-1);color:var(--ink-2);
+  border-radius:6px;padding:5px 10px;font-size:13px;cursor:pointer;margin-left:8px;
+}
+#themeBtn:hover, #pdfBtn:hover{background:var(--wash)}
+#langBtn{
+  border:1px solid var(--border);background:var(--surface-1);color:var(--ink-2);
+  border-radius:6px;padding:5px 10px;font-size:13px;font-weight:600;cursor:pointer;margin-left:6px;
+  min-width:44px;
+}
+#langBtn:hover{background:var(--wash)}
+
+/* ============ 封面 ============ */
+header.hero{
+  position:relative;overflow:hidden;border:1px solid var(--border);border-radius:18px;
+  padding:30px 34px 26px;margin-top:14px;
+  background:
+    radial-gradient(900px 420px at 88% -30%, rgba(42,120,214,.13), transparent 62%),
+    radial-gradient(700px 360px at -8% 118%, rgba(237,161,0,.11), transparent 55%),
+    var(--surface-1);
+}
+.c-deco{position:absolute;right:28px;top:22px;width:250px;height:auto;opacity:.75;pointer-events:none}
+.c-brand{display:flex;align-items:center;gap:14px;padding-bottom:18px;border-bottom:1px solid var(--grid);margin-bottom:20px}
+.c-logo{width:62px;height:62px;border-radius:14px;object-fit:contain;flex:none;padding:7px;
+  background:linear-gradient(135deg, rgba(42,120,214,.16), rgba(237,161,0,.13));
+  border:1px solid rgba(42,120,214,.30)}
+.c-name{font-size:17px;font-weight:700;letter-spacing:.02em}
+.c-tag{font-size:11px;color:var(--ink-3);letter-spacing:.16em;margin-top:3px;text-transform:uppercase}
+.eyebrow{font-size:12.5px;letter-spacing:.14em;color:var(--ink-3);text-transform:uppercase;margin-bottom:8px}
+h1{font-size:30px;font-weight:700;letter-spacing:.01em}
+.sub{color:var(--ink-2);margin-top:10px;max-width:760px}
+.meta{color:var(--ink-3);font-size:12.5px;margin-top:12px}
+.c-note{font-size:11px;color:var(--ink-3);text-align:right;margin-top:12px}
+@media (max-width:820px){.c-deco{display:none}}
+
+/* ============ 章节 ============ */
+section{padding:34px 0 6px}
+h2.sec{
+  font-size:21px;font-weight:700;display:flex;align-items:center;gap:10px;margin-bottom:6px;
+}
+h2.sec .no{
+  font-size:12px;font-weight:600;color:var(--ink-3);
+  border:1px solid var(--border);border-radius:20px;padding:2px 10px;letter-spacing:.08em;
+}
+.sec-desc{color:var(--ink-2);font-size:14px;margin-bottom:18px;max-width:820px}
+.card{
+  background:var(--surface-1);border:1px solid var(--border);border-radius:12px;
+  padding:18px 20px;
+}
+.card h3{font-size:15.5px;font-weight:600;margin-bottom:4px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.badge{font-size:11.5px;font-weight:600;padding:2px 9px;border-radius:12px;white-space:nowrap}
+.bg-pos{background:rgba(42,120,214,.13);color:var(--c-us)}
+.bg-warn{background:rgba(235,104,52,.14);color:var(--c-cn)}
+.bg-neg{background:rgba(227,73,72,.13);color:var(--c-neg)}
+.bg-neutral{background:rgba(11,11,11,.06);color:var(--ink-2)}
+.dot{width:9px;height:9px;border-radius:50%;display:inline-block;flex:none}
+.concl{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid var(--grid);font-size:13.5px}
+.concl:last-child{border-bottom:0}
+.concl .n{font-weight:700;color:var(--ink-3);font-variant-numeric:tabular-nums;flex:none}
+.concl b{color:var(--ink-1)}
+
+/* ============ 基金分组 / 卡片 ============ */
+.grp{margin-bottom:22px}
+.grp-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.grp-head h3{font-size:16.5px;font-weight:700}
+.grp-map{font-size:12.5px;color:var(--ink-3)}
+.grp-map b{color:var(--c-us);font-weight:600}
+.fgrid{display:grid;gap:14px;grid-template-columns:repeat(2,1fr)}
+@media (max-width:860px){.fgrid{grid-template-columns:1fr}}
+.fcard{
+  background:var(--surface-1);border:1px solid var(--border);border-radius:12px;padding:16px 18px;
+}
+.fcard .f-top{display:flex;align-items:flex-start;gap:8px;margin-bottom:6px}
+.fcard .f-name{font-size:14.5px;font-weight:600;line-height:1.45}
+.fcard .f-house{font-size:12px;color:var(--ink-3);margin-bottom:8px}
+.fcard .f-role{font-size:13px;color:var(--ink-2);margin:8px 0 10px;line-height:1.55}
+.fcard .facts{border-top:1px solid var(--grid);padding-top:8px}
+.fact{display:flex;justify-content:space-between;gap:12px;font-size:12.5px;padding:2.5px 0}
+.fact .k{color:var(--ink-3);white-space:nowrap}
+.fact .v{color:var(--ink-1);font-weight:600;text-align:right}
+.fact .v.todo{color:var(--ink-3);font-weight:400}
+.side{font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:10px;flex:none;letter-spacing:.05em}
+.side-hk{background:rgba(42,120,214,.13);color:var(--c-us)}
+.side-sg{background:rgba(27,175,122,.13);color:var(--c-jp)}
+.note-src{font-size:11.5px;color:var(--ink-3);margin-top:9px}
+
+/* ============ 对比表 ============ */
+table.cmp{width:100%;border-collapse:collapse;font-size:13px}
+table.cmp th, table.cmp td{padding:8px 10px;border-bottom:1px solid var(--grid);text-align:left;vertical-align:top}
+table.cmp th{color:var(--ink-3);font-weight:500}
+table.cmp td.v{font-weight:600;white-space:nowrap}
+table.cmp td.todo{color:var(--ink-3);font-weight:400}
+.tblwrap{overflow-x:auto}
+
+/* ============ 页脚 ============ */
+footer{padding:34px 0 46px;color:var(--ink-3);font-size:12px;line-height:1.7}
+footer a{color:var(--ink-2)}
+.dis{margin-top:14px;padding:12px 14px;border:1px dashed var(--axis);border-radius:8px}
+
+/* ============ 打印 / 导出PDF ============ */
+@media print{
+  :root, :root[data-theme="dark"]{
+    color-scheme: light;
+    --surface-1:#fff; --plane:#fff;
+    --ink-1:#0b0b0b; --ink-2:#52514e; --ink-3:#898781;
+    --grid:#e1e0d9; --axis:#c3c2b7; --border:rgba(11,11,11,.14);
+    --c-us:#2a78d6; --c-cn:#eb6834; --c-jp:#1baf7a; --c-eu:#eda100;
+    --c-pos:#2a78d6; --c-neg:#e34948;
+    --good:#006300; --bad:#c62d2d;
+    --chip:#f0efec; --chip-ink:#52514e;
+    --wash:rgba(11,11,11,.04);
+  }
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  @page{size:A4;margin:13mm}
+  body{background:#fff;font-size:12.5px}
+  .wrap{max-width:none;padding:0}
+  section{padding:16px 0 2px}
+  nav, #tip{display:none!important}
+  h2.sec, .card h3, h3{break-after:avoid}
+  .fcard, .grp, .concl, table tr{break-inside:avoid}
+  p{orphans:3;widows:3}
+  .hero{border-radius:0}
+}
+@media (max-width:640px){ h1{font-size:24px} nav .brand{font-size:13.5px} }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <span class="brand">富途大象财富 · 基金详解</span>
+    <a class="link" href="#sec-method">精选方法</a>
+    <a class="link" href="#sec-equity">股票基金</a>
+    <a class="link" href="#sec-bond">债券基金</a>
+    <a class="link" href="#sec-mix">混合另类</a>
+    <a class="link" href="#sec-cmp">横向对比</a>
+    <a class="link" href="#sec-portfolio">组合示例</a>
+    <a class="link" href="/">← 返回总报告</a>
+    <button id="themeBtn" type="button">🌓 明暗切换</button>
+    <button id="pdfBtn" type="button">⬇ 下载报告</button>
+    <button id="langBtn" type="button">EN</button>
+  </div>
+</nav>
+
+<div class="wrap">
+<header class="hero">
+  <svg class="c-deco" viewBox="0 0 252 150" fill="none" aria-hidden="true">
+    <line x1="0" y1="36" x2="252" y2="36" stroke="var(--grid)" stroke-width="1"/>
+    <line x1="0" y1="76" x2="252" y2="76" stroke="var(--grid)" stroke-width="1"/>
+    <line x1="0" y1="116" x2="252" y2="116" stroke="var(--grid)" stroke-width="1"/>
+    <polyline points="18,104 44,88 70,96 96,72 122,82 148,54 174,66 200,38 234,50" stroke="var(--c-eu)" stroke-width="1.6" stroke-dasharray="4 3" fill="none" opacity=".9"/>
+    <g stroke="var(--c-us)" stroke-width="1.4" opacity=".55">
+      <line x1="22" y1="92" x2="22" y2="134"/><rect x="14" y="102" width="16" height="26" rx="2" fill="var(--c-us)" fill-opacity=".22"/>
+      <line x1="74" y1="62" x2="74" y2="102"/><rect x="66" y="72" width="16" height="24" rx="2" fill="var(--c-us)" fill-opacity=".22"/>
+      <line x1="126" y1="80" x2="126" y2="128"/><rect x="118" y="88" width="16" height="32" rx="2" fill="var(--c-us)" fill-opacity=".22"/>
+      <line x1="178" y1="40" x2="178" y2="90"/><rect x="170" y="50" width="16" height="30" rx="2" fill="var(--c-us)" fill-opacity=".22"/>
+      <line x1="230" y1="26" x2="230" y2="72"/><rect x="222" y="34" width="16" height="30" rx="2" fill="var(--c-us)" fill-opacity=".22"/>
+    </g>
+    <g stroke="var(--c-neg)" stroke-width="1.4" opacity=".5">
+      <line x1="48" y1="52" x2="48" y2="96"/><rect x="40" y="62" width="16" height="26" rx="2" fill="var(--c-neg)" fill-opacity=".18"/>
+      <line x1="100" y1="108" x2="100" y2="142"/><rect x="92" y="112" width="16" height="22" rx="2" fill="var(--c-neg)" fill-opacity=".18"/>
+      <line x1="152" y1="94" x2="152" y2="138"/><rect x="144" y="100" width="16" height="28" rx="2" fill="var(--c-neg)" fill-opacity=".18"/>
+      <line x1="204" y1="70" x2="204" y2="112"/><rect x="196" y="80" width="16" height="24" rx="2" fill="var(--c-neg)" fill-opacity=".18"/>
+    </g>
+  </svg>
+  <div class="c-brand">
+    <img class="c-logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOoAAAEWCAYAAABoswuYAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAgAElEQVR4nOydd3hUx9XG35l77652V703JAECRO/F2Ng0GxdscHfc45K4O93+EicuqXYSO7Fxj2tc494rBgymdwGiC/Xetdp275zvj0UgaVfSrrQrraT7ex4epLlzZ47Kq2lnzmFEBB2dUCW3RFu0s1gsOVwpZlc1IfPBCwynJ4Szwv62q69hulB1QhVVkHLzfx3lzQ7EtpaNTGBb/3iB4TRFYo7+tK2v4f1tgI5OZ+wrFWe0FSkAHKmiGXYXwvvLpv5CF6pOyLIxX1zSsSxMhjXciNr+sKc/0YWqE5JogqTNx7QLO5YnRLBjjLEht17ThaoTkuwvp9MabEjsWJ4QwY71gzn9ji5UnZBkR5F2rrfyRF2oOjqhQ10LpXorT4tmeX1tSyigC1UnJGmyI85b+dgU/n1f2xIK6ELVCUmaHRTbsSzciNphMWxvf9jT3+hC1QlJvI2oY5P5Ws6Y6A97+htdqDohibcRdVwKX9MftoQCulB1Qg5NkGR1IKZj+VBdnwK6UHVCkBYnoghgbctMCpqy4tjO/rKpv9GFqhNyNDvIY32ak8zXSZxp/WFPKKALVSfk6OiIDwztaS+gC1UnBGmye46oQ3kjCdCFqhOCdBxRDRJsI+LZtv6yJxTQhaoTcnQ8mhmTzNcrEnP2lz2hgC5UnZCj49R3bPLQXp8CulB1QpCOU9+hvj4FdKHqhCDNbUZUmcOZncg296c9oYAuVJ2Qw+pEdOvH2Ylss1Fmtv60JxTQhTrE0A4/cq+o2zy7v+3oCocKc+vH+rTXjS7UIQQ1HxijHfj9n7X99/y9v23pCqdKptaPxw1xR4dWdKEOIUT95tmA4GQvT+lvW7rCqcEEAJxBG53E1/e3PaGALtQhBDXtmQgA4LLaz6Z0iVN1CzUjlu0xKay5v+0JBXShDiFahcpYiAtVc099M2PZrv62JVTQhTqEoMbjI2qoC/X4iJoVx4fstbaO6EIdIpCzNhaOUndkP8ZD+rpYq1Az4/QRtRVdqEMEajk68sQnITyiEhFzaQgDgKw4rgv1OLpQhwptg4KFsFBdGowEsDgLiiPCWE1/2xMq6EIdKnDjyTSFISzU1qOZTH00bYcu1CEC42H2k5+EsFBPbCQN3fhI3tCFOlRoN6JKIbuZ1Ho0o69P26MLdagwUKa++ojqFV2oQ4W2Qg1hzySnClOYDGtSJDvS37aEErpQhwrt1qihPPWFKSOW5Q7V1BWdoQt1qMANbWIOhW7GbqdKJn3H1xNdqEMExhhBMre4PyPWde0eEw/Aa15TX3FqMCWEs4IA2TNo0IU6hGARk9wjFYlg/dxHAtgIIL2nDThVmKLNKA+cSYMDXahDCBYzZ4P7o6CNqHEAhgGY0tMGHCqZo01MF2oHdKEOIXirUIM3orYGJfNISeEr7hFVF2pHdKEOIfpgRI06/r9HSgpfcWowRZlYRYDsGTToQh1CsLC0EpgyCoM4ojYc/7/HI6qqwRhpQlWA7Bk06EIdYvDoORugtZi7r9kjqo//32OhGmVYZc5cAbJn0KALdYjBYuZsIEdFcpCabx0JeyxUs+HEqKzTBl2oQwwWM/cHOMqDLdSwnjZgMrDGANkyqNCFOsRgUdO2wRBXQ5rN1H1tv+m1UPUR1Tu6UIcYjDGS0q5+lZr3jQtC8y0AepUnxmxgulC9IPe3AQMJUfHZUrIeHgXNauGZtzzFDLG1/W1TT+DpV/1XlH+8HFHTg5Ec+C0A4T192WyAPvX1gi5UP9DyH/8Z1Xy3CAC00reuVGZ9toSZhhX1t13+wswjjoLUYP3snwPQ46RO+ojqHX3q6w9t73E25411rZ+3gRyVif1oUY/hSRd8GKSmrQB6fEVNX6N6RxeqP3SMjGAvSdOOPHJvP1nTK1j46IP9bYM3DFLPR+PBjC5UP+Cx8zwyi4mCZ24jW3GPb4votIex0L0r25/oQvUDPvyuf8Ey5kC7QuEwaof/+rt+MklniKAL1Q8YNzjlCY/f3rFcFL14E7UcHdEfNukMDXSh+gmPX7iSp1z2drtCUmXt0J//0E8m6QwBGJG+JPAXshWnu9ZM2A/NajlZyoUyf08Os4w61H+W6QxW9BG1BzBTerE0+g8PtC8VXMtfcVe/GKQz6NFH1B5CwqWoa2fsbOeKJ1msyqJj6UyJru9H03QGIfqI2kMYV1zS5P/8uN3Zqma1iMIXbu5Hs3QGKbpQewGPnrlZGvOn37Yt0449eSeJoLnn6QxRdKH2Ej7i5/9kCWd9daLAXjRMlH9wUT+apDMI0YXaSxjjQp784nUwJp0IyCXy//3z/rRpIOKy10f3tw2hjC7UAMCMSRXy5Jevaf2c6jfNEXWbZ/enTQOFhpJNc3I/uuaNtU8MK7M3Fg3rb3tCFV2oAYInLP6Gj/zN31o/93NUDVb4zpBEaE5D2Z43rtr88imbt7x62oaKfW/9SKj2sKJtT3t4fem40Y9nAggJl6JuWPA91W+aAyZpyoJDw324r7oaQBKAxQBKgm5kP+KwViSV7Hj+p8Xbn73VafWM26SExdaedkf+MElpzZGj04o+ogYQxhWXPO3Ny2CIrwZpknbsqTt8eG0SgBwA72GQjqyNZdum7/3khlfWPTmi8OjaBx/0JlIAcNlrY8v2vH51X9s3ENBH1CAgqlctVDed/Q3kyEZlUf4wJoc3d1H9G7hHUwCYB2Bd8C0MPkJzKVUHP7ywcOuKuxqK15/q63uW+PF759y0Y6J+3a09+ogaBHj8gu+knL/cC7U+WhS/en031W8D0JpkeMDvFjtbquPz1z/8fz88PSo/98Mr3/ZHpADgstXE2RsLM4Jl30BFH1GDBBExUfD07VrB07crp+8azxjvKjzJbwA8DHcIk2wA+X1iZABpqtw9qWjrk3eV733jKqHa/Q4XGpkyY8uwGXf+O2nsJe9wqW3SZR1AF2rQEXUbT2HhOXnd+P/KcIfZnArgEQD39IlxvYSEJlUd/vT8oi1P3F1XuGa+v+8zLquJORe/mzHjzn9Hps7a5G26S47KRGraN56a904g66FRzDLqEIuauZlFTt7JJKMjIF/IAEAXauiQA2AbgHoAGQC0/jWnc1y2upjS3S/fULTtqTvsDcey/H1fMcVXp029+dlh0255yhiRWtrxOTkqE7X9v31YVH62FM7qeK+NMMXFIifvZAlLvpSy7/krk0yDOtaSLtTQ4joALwM4F8AX/WuKJ83V+8YVb3vqjtLc/14nXP4nmopImrpj2IzbH08ad/lbkhxm7/icSHBR9PKPtf33/h2uuhifGw7P2S9PfulaHj1ji782DRT8FqoqSKlopJHFdTSupJ5yZA5njJmVRZtRHm1i5dFmVm4xoo4z1uOQkUOcVwEYAVze34YAbvHUHPnynMKtK+6qzf/mLL8bYAwJ6VOQPuGiL2In33NeZ7u51JQ3Vt1z27NUu25ejwxlksaz/+/PUvZv/8S4MuiywXUqVIdKptJ6GlNST2OL68Q49/80rqyBRmnUdeBuiUGNNqPcLWBWnhjBjp4+SnptRDzbpm+7d0s4gPUAzgBQ119GqI7GyNLcV68v2vrknba6w9n+vi8bLEjNPhVpo85AmCUWJFxOKfPmGMZlD2cGasob61p/+nqovff3ZdFzNshzvl402KbCjIigCZKPVtP03cXizIOVYk5JHY2tbKLhFOAD+Kw4tnPxWOm507KlNyx6RPSuOB3AOADP9HXHLbWHRhVte+qO0t2v/FhzNkX4+745DEgfey6SRy2BJBvaPWORk37FY2b9s20ZOSoTXT+cugm2Tta6clQDi5y8k0WM38NMmQXUvG+8qN88G837czqzgaf+6A1pyitXD6ZBga1Y5Xx58zFteYvzRFr3oGOQYJs7Unp7cY70/OgktmEwfUMDyM0Anu+LjogEr81fubho64q7qo98fl5P2oiLBNLigSgLwKNngg+7wbOSUCt51k+T2/681V03viyKX73OszIjnnXbCmn0Q/cxJdIjHw1Zj4xUd93wCtV5P6eVpr5xuZR66f968rWEImx3sboot0Qsyq+maUerxbRGOxL60oBhMWzvohzp+dNHSf+NCGMDMulSkIiF2yGluruKPUV1NoeX73n9msKtK+5qqel8hOoMiQPJsUBqHGAytn3CwUc/AGbw/FViCWeezc2ZXwGAaNg2XV13yhaA2s/cjCll8oz3l3W3OUSkSeLoY7/UDtz3F5AmtXtoHnFUOX33uMFyhNNujUpErMGGxKpmyqpsoqyq4/8qm09+7NR6nvuyKxQJjtnD+XuLc+Tnx6WwNfooC8C99Aj498FWnz+8aNvTt5fuevEm1dHg90zKZATS4oCkGECSvNdhsfPAU6/08kDaJmX8eAYAqDuue02UvnFVxyryrM+X8IQzv/bVHq307Su0Hde+Doh2nnbytLcu5SkXv+trO6GMX7u+nQq5iYZXNlFWdTNlBkLIKVHs0FljpacXj5WeC1OYtbft6bh/dnWFa+YXbV1xV9XBj5d5jGI+EBPhnt7GhAOsu7eZAj76j2BK+78DRAQp7fKR4IZS17eplVDbr4N51h2Py+Mfu9tf29Q9dz4pCp65rZ0JyRe+r0z/38X+thWKBPQcVRDxGivSy+rF6NIGGlNaT2PKGmh0aQONqWqiTH83p6JMqFw2WX74rHHSM0aZ6VefeoDmspnK975xVeHWFXdbq/ZM8Pd9ibtHztR4wGzsvn5bWPxZ4MkXej4wJLzBlMgX1E1nrez4SFlcksSMiZX+2knWIyNdq3MOtyuUoxqUs6piBsPsrM8cHpwqhZU3UnZpPY0pbaAxx2rElKNVNL2iibpNBaEL1n/sjUXDirc/c1vJjv/8xGWvjfX3/TCDe/RMigHkTqa33cLDwMf8BUwytSsmUl2MsV9oe+54ot0D84ijhgUHRvawNzi/jLJCa++IoSwqTGVhKWU9bTNU6LNoeQaZ2TNi2Z6MWOxpW97soJj8ajHtaBVNP1otph+pohkdxdtgQ+KrG9V/frxL/c2yyfLDZ46TntUF6wkRsYbi9acWbl1xV9WBDy6ijhssPhAd7hZobIQP09vuEHZQ7RqwhLPbFTMmK6Jug0cAOB49a1Ov+lNi6joKlezFw3ShBoBwI6ubmCatnJiGE9OgtuI9WCnm7CkRi1pciKy3IemVjeqjH+1S79EFexJNtYdV5P3v8qItK+5uqtgx1d/3OTs5vbUEeKuQqr8DxS0E4+3PVOGoCEJMqYE/xe2MfheqNzqKVxMkH6ykObuKtCW7isWSI1U0o1Wwy6fIf1s8VnpuKArW0VSaWrzjuVuKdzx3i6ulyu9jNaPiFmdyDKAE6zdBawLVrQeLm9++XI708BWmpr1+r6G7Z3CId0A65TfZKW53sThzZ7FYsrtYO0sQpOOCfdYos0HlOuaNhtLNs4u2rrirIu+dy3oS7DvK4p7exkUGYHrrC0oc+OgHwdjJmTg17oQofLZ9Paa4lCV1ET09+3SuzCqGvSStbZl86oZZg8FZPyRH1O6ICGM1p2ZLb52aLb1FJLPCOpqwo1Cc+5cvXF/MyuIfHB9hB5VgheY0VO5/75LCrSvuaiz1PxQpZ0BitHsEDTd1Xz+guGpADVvBotuYbRkNtz9Hm7sb5FJE/r9/LmWfjOboF+TtyEkfUUMOImJ7SsWCrQViWWoUOzB/jPTSQBes01qZWLzj+Z8W73j2VmdzWYq/7xsVICUOSIkN4vTWJ0NSIY36fbsiLf9RwNohSyU3OpTTd0zsSfpK57eZJXCUprYtk0/bOINHTd/WA4tDigE5onYGY4wmpknfTUyTvqtroeT1R7Qrwo2sZlI6/2agCbaxfPu0oq1P3lW+760fkeY0dP9GeyLNx6e3Ue7RtN9xlIKacsEiJp4o4nFnQnQUqnAY1V03vizP/mqx/zdgBu+IOqiE2pYYMytfMEZ+SRMkFdbSRIsR9TFmlCoSC9l4PEKoctXBj5YXbXni7vriH07z933WOr2NAyL8vtYdfET1N5DaCBUREwDTcMDWPkQU1W2Yq+375WPyxKdu8a8H/72tBgqDVqitSJxpw+PZTsC9e9zf9njDaauJK9354k1F25++3dGDtA4G+eT01qAEw8IAYT0EajkGZs4CADDGwNOugTj6MCDa7x+RszYuMJ3qI+qAQ+JM7b5W39FcmTuxaNtTd5btee2ankTuizC5N4cSogA+QAK/iupvIGWcTCHLwlLA069vvwMsR9dLI372qP+t61NfnQBBQpOqD3+2tHDrirvqClYt9Pd9BiA+yr3+jLQEwcBg07gD5KgCM5489mWRU8BSryylqq+MkCMb5RnvLueRk3b73bbXXd/BgS7UPsJlr48u3f3yDUVbn7yzR5H7pOPT2zj3Tu7AhUA1K8FSr2hXymPnpbJxj03gxti9vWjbU6iDwCEf0IUadKzVeWOLtj11R1nuf6/TXFa/x8DwMPf0NjF64Exvu4Pq1oMSl4LJ4e3La1b9CakXe7lu0xt0oep0ApHgNUe/Orto64q7ao5+vaQnbZyY3pr7yHuoLyEXqHY1WOLS9sXO6vNJs8cyKayHkT70qa+OD6iOpoiy45H7WuoOjfL3fVly79ymxLmvmQ1mqGYNKP6sds76jEkS1W/5OYub9/suXu2iUX0zSacLWmoPZ7sj9718Q08j96XFAYkx7ovaQwKt2auzvmjaeyeLPfVBxnhgduj1NerQhohY7bHjkfsOf35eT6ZdbSP3DbrprQ9QzUpQ7Olg7ORfJ8bkKLIevpiFj367By0O2u+iLlQ/0ZxWS9me168p2rriLmtN3lh/3+88ct8QxFkNNO4Aoqa3K6aatQ8iYELVR9Qhha3+WFbx9qdvL9n14k2q3f+I7r5E7huKiOqVkDoIFaAxwlE9mRvjd/W2faYLdfBDRKy+aO3phVueuLvq0MfLQMLvFWRshPt4xafIfUMRWz6o5SiYuX3oLKpZ9WekXrq0k7e8o28mDS00l81Uvu/NK4u2PnlXc+XuSf6+35vIfUMRUb0SUkYHoTprzyHNlsAkU5XvLelr1CGBvbE4vXj7M7eV7PzPT1y2Gr+dwgMSuW8o0rgT5KwBM5z8ljMmcarb9CsWP9+PpM66Z9Kgpr5k4ylFWx7/WeX+9y/uUeQ+E0dakghM5L4hiQDVfAeWcmn70ub9t7K40+9jjPcijeLgEOpQObXrktKdL95UkffOZf6IlHODM8lgxpSIeIyPium7+EODFKpbD9La3xNnTI6g5oN+5IkdvFNfXagAhs247Ynua7kJi8osGLXw4V+fet2O6SPjJ+ebJQVkN4BUfa7bK4QdVPeDRzHVrnvA5zYG8WaSLlQAEUlTdkYPm/d9V3ViMs5YPemidy469ZYDIzNn/+IfhqRRe3nqks9an5O1ryOGDT6oZhWIPBLVjxT2ypk9bnSQrFF1oR5n2Iw7Hu9YxuUwe+rkG16YfeO2ydOv+nZB4pjlHzAuaYA7PpM89rIXILtzdwqrGYMoTlz/4KoFNW73KKaaVX/yrYHBO/XVN5OOkzD6go+MkcOKHI1Fw4wR6cXp0255Km3Kjc8bzPGd5ieVUobv5fFnfCfKP1kOVQI5DGBhIRuSaUBA1d8BUTPal7kaziStJZlJ5vJu3h60U19dqMfhXFZHzf/LPYxLWsLo5R9wSel2p5FJsksae8ULouLz80GaRM0WYCAIlZsBEaKJBWz5IOsRMMvJXFGMcUa1G+9hCQt/7n+Dg0Oo+tS3Dcnjr3gzaeyl//NFpK3ImdPWsqiZWwCAbGEgNYS/pYYk8Kyfgef8DazDqBVKUM13HmXCevBmIq1r9xE9FMvQg4RLoYZtM6hm9QJRvWohNWybAW50QLJYWcT4PTzujNU88ZzPWPiYA9LIZW+q2zbOAQGi2QIpuqm/zfcKMw8HCx/j/njYjRBKLKja58TefQY17gS56sGUky7VjMkWatp/NYsc/0IXb+oOD0MFctXFaHt+9oSo+HgZtOZwr3Vs+cO1yk/P1/J+8w+WvPwDKeWW51XziKNoOTqCrGZQVFNonqny9gMST74QwhAPKn0L7VJL9DsCVPs9WNIF7Uqpbv3vKWLci/4lJh4cQg3heVrfI+q3znStnbVdlL5xVWcibQ8xKv/gIi333E95kqUUIEDjoJYQParhnhFJeew88MxbPUTc31DtWpDouAJhmeSomNPFW4N2M0kXKty3ZLRjT96prj/9B9j8jxAI0iSufX0aT7C6AIJoDtE4npL30MEsYgL48F8CcpRv7ciRYFGzwNKuA0u9Cu4gpgFGawY1eKaMoerVf+78JX2NOqgRh/70B+3QQw/0th1ualIQq0LURoEcCpixFy6qwcDLiNoKMw0DH/EbiIInAUdph4cyYM4GCx/r/mdqH8xfOCpANd8G3FyqXQ3EtB9ASW2cT6o1jcmWEs8XBu+IOuSFStbD2dqRv/3W60NjcjlPOv8jFjd/FY+Z+wO56mJgPThGNOZOEsdW3AW1wWMI4uE2kFOBaAqHZKwLuv1+0c30lhliwUf8CqL4FcBZDRaeAxY+FrCM8swY3gZrUy2CkurGVuBxV5UxzkTdhnulhMV3+tTGINlMGlRpF/2FiJi65YLPqOrLczo+Y4nnfSpPfvE6Zoj1GrqSHBVJWt7/PSJK/nutxzONQStLhJRUA6aEThYNnvFTsMgpAW3TYWvAho9+h+wUDSkByhbTFhY1E3zYDe3KiFSblHlTLGOyvW2583OTC9Q+sbOy8EgmM2UUBt6yvmVIr1Gp4pMLvImUj7rvIXnG+8s6EykAMGNShTzlxeuk0fff7/FMIvDIZohGH/aj+pIgbBiVH90AEhrKexiJtzuocTvI1dCujDHZRI1513mpPWinvkNaqNrBB/7YsYxFz9wsjfr9g4xxn84rePb//ZnFLVzp0Y7ZBmoJC61bNTywu9FEAqWH1wFAUEZTdycaqG6dZ3H9xvvIJwcHXagDGhJOAzXvG9e+lJE04YnbfBUpADAmafKUl67t+AvBZAEYnKE1qgZ4RK0ty4PdWgNZAhL8DvfmO1S7FkRah1KWTvbyee0rDt5d3yErVLTkD0eHi+IsetamnqSRZ2GppSxy6g6PckUFWc0gLQS+zTwMUAKrptLDawEcj6wYzC9RbQAaPQMSUs2qDkc1g9czKQR+g/oHsh4a3bGMhY850NP2WNwZqzzKFBUgQDT187mqZTT4yHvBpMBNfR0t9agpyQXgTsMRbIS36a9qPY3Upsyu39SFOqAh68ExHcuYZdTBnrbHY2Zt8iiU3Fvq1GTpn1FVsoClXQNp+M/BjEkBbbrs6HoQCURZ3Ck5gk7zfpCz/Y1DxhhE7frfnSzxb+pLztpYddfNL6o7rnlDNO0dHxA7g8SQPUclR4Xnb64cXd/jBsPSPA/g5aRKwJEEYhCN4ZBiGnvcvL+w6NlgyZd4pDYMBO5NJHfYlNRgbSJ59urOVdPR/7fl2LUk1LsZl23e3/M+opK9PFndfO7X1JQ7EQBEzeoFyqnrZzHTsKIAGx4QhuyI6vVszYsDg6/wmFPWS+P/fSeLOWU9SzjrKz7sxy/y1N893Pqcmi0gVx/sABsSwLPuBk+/PigiBYD6ikNwtNTCIANxPf6O+Q/VrffYVGJMMpKt8NzOd4C9C1Xde9eTrSIFADjKk9Vtl75PmiO0nJ6PM3SFahntsR4VVT3LZdqKlHXbCmXu96cqsz47W5703I3y6HPfhWXUIQDutWpDZG+a7xomgSWcDZ79e7DwnOD1A8BojgHjEpJjAd6X+6xqA9C0x6OYGrbf0uk7nW0maTaPBTs1bJshil68qRcWBo2hK9TYed9DsljbllHt92eI+q09D6TVsY/ohGIpdcknJ9pvCQM5lEA1fxLJAj7yt+BJy8B4ENrvgDkyERnjliC5DzaROiJqPTeV4KybT8LhV7pLKecv90CJ8fDx1I48cq9v57N9y9AVqhRm50nnf9yxXN160UfU0oMbNN76YIyknItehXLSw0mrD8aoysDCUoPQbudkjT8bsimwG1Q+0bwX5OrgBsWYTLaC872/4H1E5ZETc6UJT9zm8cBenE6NOwPrZxkAhqxQAYCP/PXfPH6QjrIU18ZFa8jqf8Zwb0jJmXk8Yf5JzyWHAaIlwNukmhXUciywbXYDlxSoSUG64tYlBKrb4FnalOfhc+2m8+MZnnLZ2wjP2e/RVsO2kItTM7SFGjlpN0+/5lWPB7bCDNeGBWtFY5vNhh7CZMUp5Vz2EtjJOEyiISLAoUUJ4ujDyF35ZxQfXA2Xs28Cl1liR8FmOrVP+mqLt0DdcFQu8lqZy53eimCMEY+YkOvxwFkT33PrgsOQFioASOMeuwsWL44OjookdeOiNaJ+y6ze9iEPm7SBRc8+ec7qkkHNgb8YRrZiHNr6NtZ/cC/2rX8J9ZWHAt5HR8KGXQiNB3GTzBuuOpC1/dfGGJcgmT2PaJihy7CQZC9L8SiUw5t7aWHAGfJCZUpkozL9fxfB4CV+r6suRt141kpRvXpBr/owh9dLI5e/0bZMNEQE3AliXCYwcTgQF+5CZcFm7Pj2UWz85AEU7vsaTltwznBlgxmOOD/SwwQIatjqWRiW5rE5JMrfv7jTNloKMqnBc/OQmbLye2tfoBnyQgUAFjFunzLnu9NhTC31eKg1h6tbln4hKj8/rzd9yCPnf9Zu5BYcIsAbS4wBMRHA2ExgzlhgZCoguSpwZOcHWP/Rb7Fn7fNQnZ34BfSCiKRpsCl+p5HtFdSw3fNM1Zzt6FhP23PH06L2h9M83tccRnXX9f+F6HBuysPsLO6M1QE2t9dIDzzwQH/bEBIwY0I1T17+gaj87Hy46mLaPSRNFmXvXgbL6IM8YvzeHnUQZm6kmsosqtk090SZSwEMLjCl482Q3iNxINLsvn4WFwkwEGqqyqCYohEZlxXw/sicDdT9AIY+uihPTjDzCDBj4gz818UAACAASURBVMkyOdxOtWvD0XaHi1yKKHv3MnCjE0xRyVmVQI25k7XcW5+j2rWnd2yWp17xppR62dt98SX4w5CO8OANspemqpvO+cbzChwAMJImPv0TKePG//SkbbXkyCTnF5d8B1ebJMmSBimlCowH/+cgBNBsmIGYnBuD0n7p9seRZMgLStveYNFzwNNP3h8nEi5q2Pw6Fb9yfY8a5CabMn9PTihGhBiyvr6dwcJSS+VTVp6hbj7vS2rYPr39U2Ja7i3PQ22OkEbc/Zi/bUtJGft54oKVouTdy04UahJEQ0Sf+AFzDkSyIz7XP7LzQzTVFsJgDIcSFg7F2PrP0uZj97/GqiM4uD8PllFAeB9FS6XGnSBx5QknD8a4wkc/9KhWv2WW9z+0XSNNfuH6UBQpoAvVK8wQXy3P/mahunXZp1S7bl7H51rerx6F2hjJR933kD/BoJmsOKUxl70kSj9eDnKeiBZGTRaQ2dY3UQtddRDOGnBD1970hfu+RuG+r3xuljEOAlBeC2Sn9dJGXxF2oHkv0CYOFOMGRZ79+Vnqlos+psbt03xtShr/r7uk1Ev/FxQ7A4C+mdQJTIlslGd9djZLWPKlt+faoYce0PJ+/U9/3c3kYRM2spjZGz3aq43uu7SNLV2PqrXl+3F010cAgOhwICfDLb6sJCAtHkiMdm9aRZiAMIN7PUwkwBmQntAXX8BJqKFDmkbSwlhYWol8ynen85H3/BU8zO79TTcsfNw+eeYn50pZt/uczLo/0Neo3UDCaVB3XPs6lb93ibfnfNiN/5EmPnkLY5LPO0KOLe/com395dMebUU1gUcF/wiPxcwDT7vS6zO7tRZbv/wrXI5mWMKAKSMByYdLP4Lca2C5r0NEyVGQcv524lOedO4iFpZ6IssUOSoTRcVHy6l61SKyFWSSqy4WTFZ55JQdfNh1L7G4hSv9S5HRP+hC9QEiTdJ23/K8KH75x96e85RL/ydNefkaxrs+XG9F1FZm2D+9+itY97e/5sIAKbkq+CFGjSmQRv3Bo1jTXNjxzT/QVFsIWQKmZgOmkLz01R4++iEwg3so54lLzmOmYZ/3s0kBR5/6+gBjkiZNevYmnuWZlRwARNk7l7nvMnpenfLaXkxCkZS25FOPBwRoNX0wBXaUg1SrR/HBLW+iqda9lzI2Y2CIFADI2mYqT2pfxJvoc3Sh+ghjXEjjHv0Zz/6dR4hRAKDKz89TNy/9gtSmbq9bMcZIGrPsNShevKGcCkRdsG9jE6jlaLuSkoNrUH7U7ew+IsW9Bh0wtBw+8SGRGCB/XvxDF6ofMMZIHvPAH6SxD//a23Oq/f4MdeNZK8lZ2+1NTSk5M48nLvCasIWazRDWIJ9xtPnlbqg6gkPb3wHg3ihKCzmX9K6hNptjjIdV9qMpQUMXag+QRvziH9LEp37q7QoVNWydqW5ctIbs5cldteE+qrn0ZXCjh9sbAHeiKWfwTs+oYTuaSlajruIg9qx7HiQ0hJuAUekIzdyuXeGoAInj63o5PCRjHvUWXag9RMq4+TlpyqtXwctuLzXtmeDasGAttRR0GcpSHjZhE4uZ43m5EgCIQauOBYkgqcZVDSp7GztXPganrQGK5HbqD2p83qBBgHo8Lp1k0YWq0x4p7Yo35envXuh1VGw5nO3aMH8dNR/wCEvaCjOH10vDl7/VaQeqBFEbvBD0ZqPbcT8hyu3IH9Z5wrbQx1EOEFk7j0Y4sNGF2kt40tJP5JmfnNsx/hIAwF6c7tqwYK1o6Dy0hzxy3hcIH7evs+fUEgbRGJwA3oy516NjM92ODQMZshUCktHz9tMgQRdqAODxC76TZ3+12GtcYGdVgrrxzFWibuMp3t7t9KimDaIhMjhB0QYR1JwHKLHBvynfT+hCDRA8ZvZG+ZSVZ8CQ6LnrqNZHq5vO/kZUf+cRLoQxRtLoC16HIaGq08YJ7vVqKOSwCVVcDTXMMjpkfXV7i/6TDyA8ctJu5ZRV8xDmJdq6ZrWoW87/XJR/vKzjIyk5Yz9PXPhNl41rHFpVHEgbaFuyfQOLGLuHhY/6b3/bESx0oQYYFj76oDJ39WknAm+3RTgN6vbL3tNK3mznaMtkxSmNvuQV8DCvRzUncMpusQZrJ3gAwyLG72GM+Zwuc6ChCzUIMFNGoXLKqnksYtJuj4ekSdrO617TCp7/adtiedj4zSxmzvpuG3cqENWxfXfTZoDAoqb5nS5zIKELNUgwY1KFPOebBSzaS5Y3ENP23PaMduSfJzycmDm8Xhqx/E1f2ia7QRdrW+SIJp5y8bv9bUYw0YUaRJghtlae/dViFrfgO2/Ptf33PqIeuP+PrXda5RGnfQUfYzKRzQhRE6OLFQBPu/pVJkc09bcdwUQXapBhcnizPPPj81ji0k+8PReH/3Kftu8X/yISnMUkFLXNVdMd1BLmdjUc4mLlmT/1uNs72NCF2gcwKcwuT//fxTz1Cq9TW3FsxV3a7p+8ANIkafT5b8KY5LNjOVnNAQ87OpBgcWes7nFkyAGEHjOpj2BccUlTXr4GcniTKPzPTzo+F8WvXE9qU4Q06aVrefKST0XBqzf42jY1WaAxghQ9qGd/XpEyb3mqv23wB5dGSkU9pZfU0PCSGhre2EKxNicsLQ6y2Jyw2JxksTmO/9/mcz3CQxBwuCimqplm1lhpslOlaImzljgL25URyz4D3GtTcfTRX3l7lyUs+RJpj9zn+vqmD2EvTvenX2axgcfWD7zbLz3FmFyuLDyawbjSB1HhfKfeSnH5FSKnVYwlNWJ4Sa374/I6GibI/5msPqIGkAYbjdpVrP36UKW4RhPwiDQQZ2E7p2VID2WO+es9TI5q0A7e73EJnaq+OpupVos04rJXtX2P/taf/slqguaSISXUgkmD9kjxBDzjpuf6W6QulQwHSsTk3AIxO7dAzM49JmYXVFFAMgG2RR9RA8SxarF81UH1vy4N3bq3x5pZ7rQM6aGM5ifTxL5f/MtrJcvk3WppIqFhz2S/jZEEpPjavgk/2l8wSVMWHM5ipvTivuy2pEZk7T4m5rQKM69ITHOqCHpUCV2oAaCwVpzz5V7V74BambHsk8URr3+o5f70eUB4TofkYSVqgZYEjfyf+TCAx9aDWwblrS/wkff8Vc75k18zjp6gCZJ2HxNzVudqF6zK1ZYdq6ROry0GE12ovYSI+Ps71G01VupRluppGfyhaYaPctUd17wBcnlckSGKaNFKTGaInsXhZBFW8OjGQbVuZVHTtslz1871Neqjv7Q4KHzDfu3M1Xu0C77foy2ts6Lfg9MMeqE22yljb5l2e1kDnV7fQmMJ4DFmtm9SmvSPrHj2AWesVxmajlaLi7/NU3vlFXPWOHlZhvaNU912yQcQdo+1LbkMQiuP4aCenaaxMAd4XB2YNAh+1txkU+ZtmcrCveS07QW1zZTw3S7twtV71As2HhCL+2I66w+DVqhExLcWaA/uLBb3EnnfNIsIQ/7ENOmxMUn8JUViPYp8/e421+7aFupVZnJFQuOFU5RZkbZ1SerWZZ/CSyRD0Wjp3XmprLk3mYIdMzjISBOeukXKvPnZQLQlBPEth8X899arP/l2l3aRqiFkL/0OWqGuPaQ+m1cuPM4rvRFlwoHlk5VTjArzSITbFUTEn1/nUtE2zV8PiTYjb/lkZbbcvH2Muvm8L9tlfANAxKCVJKCnU2AAACP3VDiyuU+yxwUalrj0E3nG+8t6G9m+pokSP96kXv/eBvXmwirKDpR9wWRQCrWuhca+s83VaXgTb6RGsVXnTJDPljjzed3jVCni5Q0un9OwMdIgwwoCg8o8A+fOzJJ+O3WY9FdqPjDGtfncr2ErzGj7XGtKa6I60fuIu5IGHt0IbukyLUtoYUyqUObtmMiMXVyw7wIhiG85JBa8u179ycrd2oWhPHp6Y1C6EO4q1n7j7zulDbRg3WHtaX+SPrk0+CQaRi4sbLkU1zVF4qqmFFzcPBFx2g6Perkl2s9VjcwsfMwBKecv93R8LiWP3A0lrsZX+zpFkyBqYqBWxIGcA+P3VZ70wvU9EanDRWFvrHHdufSP9kM3P+n49qsd2mUDTaTAIBSqS6PwQ5Xi6p68e6BC3LCrWPgscl+FmqF+iow2pzcmqsJ4x7896tldSNhfIW4EAB45xUPJjNdFKnP+egfkqAZfbewShwFaeTy02qiQDvPCR97zV57oPateZ9idZHp9jeuucx+0H/3be67Hi2toRLDs6wtC96fTQ1waLJ1tHvnC1gLtj0126jIebysWI0oY0O2usco8owgq8D5j3lWs/VoTZIAc7mVzi5E8fsnb8vQHf+U16mEPoWYztLJEiEZLyN3EkXL+9htpzB9/52t9u5NMr6123X3eQ/YjD7/n+ndVI6UE076+YtC5EPZGpAAgCMr2Qu3+M0bL3TrFKxJrjg9nO6qaaUZX9ZpZhkdZuCgGiDzC0lsdGHa4Ulw1SjnqmcTUEFvDGCNlyrKXyGWzaDsffBjCHphjBMHcu8pWM3hUE5jJ3r9nr0xxSZNfvE5K837jqCM2J5nfW6/+5MVvXfdUN6LLLAUDkUE3ogofhHqshmB3dT50HKwQ19W3+OaBkhzJ1nVXp4mPgKuDZ2GM2IvhqvegeQdKmu7Q9t/z947lLGbuDwDAuKQp0y9/Uhr3yz+CBdjX1SVDVMdAK0lyT4n7I0yp7E4i7YtIXSoZXlvt+tm5D9qOPvK+67HBKFIgBITaaKMRPxxWn3hnm2vviz84ra9scNasP6L+q9FOw3vSnsWAUkVCl/e9EsKBvWUETXgXKwF8a4H2kC/9JUXyH7qrI5gBBcr5HuXzbDdhlPMltJ1vGqgOE6qunEb1W2Z1rM+Tl31w4mNZVuVxk7+Tx0z/RihB8NAR3D0lroiHWpoIrT4C5OqDCZgxtVQ+ZdU8Hu89KkZbNh3UFl7ysH3XI++7HqtpQlLwjes/+vV4Zn+5dsPaw9qz3qarDBDD4/l7M7Ok30WZmF+Blb/a5/qwoIY8wnK2pa6FUFxHmJDKwLzP8ehHM5XhEWGsoKt2nCpFvLnFdcyhossMbjFaLs63zgWH562WBj4aVpYOBU2I1vKgwHN5yuIXf6PM/uIsDyOb9o2zrl+2jqxNMXKTBrIZ0VMPJp8wqODmFjCzDUwO7A0dFj5unzzrk3OYKaOwq3qVDSL1nx+6/vHFNu1HATUghJEeeOCBfum4vFHM/Xqf9hE6H9VZXQuNL6gRF4xM4G8qEvN588ThQmxRHZ3XVR2TwiAIqGgkxFq8CpUZZVafGs3XdNWOxJlTEJTSBlrYVT07T4JCzUjUPGOdhVENIigfFiqFBC+DoxzRpMz48HxmiPVwyGDGhKot6lU5aN42JcaUCxbZAmZ0AJIAiB339Q/gYlPjILsR1BQOchjdn7f2wUWP17UsbuFKefan5zBjckVndVwaKW+sUe/+xQvO9/OKaHoPv4IBSb9NfXcVaff6Uq/Zgcyv96kfqRr5nDA0M45/zJm33/j2pES5R9OyBu+zigMV2o+Juh+eJqTyFQYZnuksOrDN+BAKZM8pcNcwkie/dC2zjPTcXDqOYowq/87yNrYb7wfAwE1OSDFNkFOqIaVWui+Tm20AD+wISHYDRH0kRFUstLIEaEUpUEuSoFbEQauJgmgIh7CaQA6l8+Mf84ij8rS3LpVnf3kmU2I69QzbdkSbd/kj9u1//8D1aIuj+6uEg41+GVGb7ZSx7ojmc0AqqxPp9TYaMyKev9vJNLUdBpk1OlSKrWwir/le2hJjBorqCIoEhCnt23ZqiE6N4qu6m/5KnDkI4KX15JGyoh2Mo0BeDg4VSVr3IXw1Hmk3TH35Kp5y0ftd1WtyUFZBLS6okE9FvnIpjFoNokUeGAMYJzCDCm62u90HTQ4wWQM4AQT3qBvIEZcYoEmASwE5jCBbGMhqBjWFQzS5hSuawkE2I5jBBWXOR+fyhDO/7uzn2mCl2D/+z/nMI++7/lXbjMTAGTqw6JcR1a5Stxm5O5JfTZcU1tJSX+tPHSb9pbtNJQBgjCEniaGglmDzshNcUCu6XOu2MjmdP5IVxz7orh4xGdvDHsSHlk04LF8BG0V51GlhydhuvB+bhuV+w1Mueae7NiPD2In04Y3SKHwf/jLeD9+BIjqn3bkoYwAzusCjmiEl1EFOq4KUXgGeWOO+CmduARQX3AoOAsI9FecRzeDHLwiIgmdv7az61sPaGZc8bN/1yWbt2uAYNHDol82kqiYx44Od6hZ/34u1sN0XT5Wn+pq64GCFdu3qg9orvtS1Ogj7ygkzMtpvLkWG4fAVMw0+hdZQNTJ/tkf9pqKR5vpSHwBUVUV52UFMTKyDUVJhY4lo4GMAxmExouiqWQbPQ1hP21Nf3+wq8fYsQhzB9Jb7kal9CF992YkAOBWQKgGaBNIkQOXH/5d6tu41uMDDW8AsLe3XsdzgVBYezWDGpBNrU5dGyrNfuv7w/Nfq74gCOdwPXPpl6uvSELm3TNzh73s2F5KizWx/rIXv8aV+XDjfZZBRX1xHZ3dX1yAzOFWg2QlEmU7+bjhUxI5L4U8pEmvprg3OmSs7kb9hdyGhuhsniJPvcDBjPHZUp8MSlQUHTzjhBOHSEDU+lT8pd9O3IqE5r0z8VBWeazcni8Uxw0U4argCimhCtLYfvJsruIwBTBZgBtU9Apsc4BY7eLgNPNIKFtns/thkdztGmOxgYU73P6MTMLjADC738/AW8JhGSJFWMIPLc7OJNInJkY087vTvAaC4Rgy/81nnp59v065EQOfkA5t+mfpGmXDApKC8s+fVzYTqZu9//XcUit/74zg/MU3695Jx8gVhCrp16M6MAyobCU61fd9VzTTT1/5kzuzzRsm3LBwjXalIXs5ZvBARxmAxAAW1ns/qbTS6u/cZYzQ6ib/aVZ0mPgI/mJ/FG5Fl+ML8JdbYf4ZaVzZ82Cvz0h/AZA0szAluPi7iiJbjIrZCig+r4Qlo4FFWcIu922McreCZ20g4DZ9vVa+87GH7zt3HxBy/jRrk9ItQGWOUHsO/7ux5jBkoqCE02DzFWtdC4yp82CRqS2Yc/+TSacqEEfG8y/yZnDGMSmQ4XNW+3+pmmupPfwCQnSi9edl0Jae7PlvJimMorvP8I2F1kE8hQ8ckSS/5Uk9jYaiQ5+Fw/J9wX+MOPGOsxJemz7FXuh11GA9Bvt93JSgq8ZQKGGdtR+J1r/JJL12jnNNkNJxdGi/nPPR7nxtylCe/9c7b3977qvP1ZjuGbjTxLug3h4fiOnHW53vUrzp77lQJu4oJ41IYLMb2A+iYJP7iGaPlG3vSb3mjmLvpqPaPrsR+qFIgIZwh2uzud1wKf/q0bPm2nvQHACX1YtEPh9UV9TbkdFWvqI5gcxJGJ538+7kwR/pRdoL0li/9fLTL9YM/6+NmB2FfKWF6JoPE3V8rJydkWCGRAxIckEQLhkfVfzs9zfoYJJOdkSqDVJmFj9kP0/D8zi5xk9oU4VqZWeItWoU3cutn4MebVvpq+pCj3xweIsJwtKyBzmh2IMvbc4kzxFqAvaWEOAsgSyfF2mSnERPT+KM9iXcUbmRFY5L4i7EWnlvXQhPsLiR0rBNtAg5VEhIj3LvCZgPKshN9E4s3IsNYfk4yf96osLqqJpqlCXg9E44IAw5XAfHhJ7/e4XH8g1gLz/WlH4PEmo5Wi0t9tcsgMxCA8kZCfLi7P2ISNGaCysLhZNFw8AQ0smFhU8bk3MrNw/OZZeQRZhl1iCkxdV0dlTFudJKjIonqN/s0jU0KK8XW+rMQFxuDyiYZ+vK0Pf3m8MAYoznDpV8zhk6D+JgUhrEpDLmlBJd28g+3U0NUWQPN703fI+L5e5dMkycuzJF+FG1GXtvnEmdIimAoPn783uJEak/7atOmc1Ka9NgVM5SRk9L4P7w5ZHDGMDKeIb/65NdKfvzGjkjg72Qn8Nf9sSstGnCoQFVT5zOrFidSbU7y+IPWHVLWbSsAH7aajSngWXfi2VslvPbTArxz+zHIgyEQWwDpV6f8hAi+dcEY6Rp0cXAXbnT/8uaVE9pO08saxBm97Z8xJrITpLcumaZMXDhGurKtYJMi3e6FTpWgEQy97asVo8Lq5oyQf335DGVMdgJ/o+Pz+HDA5gJanCe+Vr+GltOypdsiwnDU1/qMMYxLYThSTXB0caOotoUm+WMHADBL9mGWeO5nnT6PnAae8zCk6e+Bp10NxeAOwDgqyYGzxvsc4WZI0O+3Z7ITpLfOmSCf09UucKyFwawApW3iGlQ2kcftkp7CGdOyE6U3L52mTFicI18aZ2E7GGPIiGUorCNwhoCHnI8IY8cW5shXXTRVnpYew06s1dnxDa2jxze0yM88JQaZNS6dqCyKMsHniwyK5P5jeLS6c6HWWP0XKgBIWXc83q6AG8ESz4c05TVIE58Gj5sPxjw3sK46xa84c4OefhcqAAyL4V9dOl2ZODqJv4xORtcRCQzlDQSrw/24xkr+p3roBsaYGJHA371oqjz9nAny2VPS2XcNLYAmKGiJXOLD+Y5zJyhnL50oL0yMYBsB93ENY0CTnYAeLNYiwtixCyYppyaEs62+2wE0OwCb07tYWxzUo+k/i1/0LcLH5sGQCJ5xK6QZH0MadR+YpWsfEptTX6O2JSSECgBhCqueP1r+8UVT5Wlp0ezbjs85c69X88oJQhDsLiRoggI2JW0LY4yGxfCvzp9sWHT5DPlntVaUBaOftqRG81XLJstzzxkvn5MYwTaOSHCPcP6OqK2YDKxq6SR5QVYc+9CX+owxjOhiVPW26eYTwjlCG/VPTZrxAfiw68GU6G5foZajeG/9AIqQ2AeEjFBbiQ/nO8+bqJy5dKK8ICWKfd/2mdnAkBrNkH88Dp/NGfzb/AvGSI832EAujYKfCIgxGhbLv1w2WZ578VTlzDAF1YW1osdxZxWJNZ85Vr5o7kjpTl9uE8VaPNbHJ7C5qEcO8c0NZX81muMmMNb1pXMiAVG7FtqeO6Dt+BFM1u4vLQwlQk6oraRG89VLJ8rzz5soL24b7iQlEmiwuR3onZoXj/YAwxijU0ZI73x/SLsm2H217TM9hn97w1zDJVsLe5bTpm1bE1KlFcunyLOjTOgyDUTrqHqkylOodhVxXl7pkqJqMfJgsf2CruqQaoUofQva9ksg8n4FanC7gE+PXetvd4OakBUq4P4lS4vmK8+fJJ++dKK8IC2afdu62XKoksAY65P8DHNG8HfXHNSuFT3xt+sF41LY93VWSqmxUlpv24oP5zsvmqpMH5vMn+uqXqyFwam5nSHawuAlNEUXFFWLkTc87lj9xoZorzMRshVCO/oPaFuWQuQ/Btjb3ymYFbcavPsAj0OGkBZqK4wxSo3mq8+bqJx54RR5xpR06W2Fgw6UC58c33uLIjHH+FS+ek+J6DKKQ6BhjNGS8dJTqw9oPw5Ee4rErPNGyT89d4K8xGJAp3lFR8af3HVuReJw+NpPq0gr6il9VV4ESupO7uqKug3Q9v0c2vbLQGXvAML7fYMYQw0mRXtGwxiqDAihtiUhgm9bNFa+4tdnGaZ9nade54+Dfm84c6z8zNrDPQvs3RtOy5be2HxMWx7I0Tw9hn996XRlwpgk7tU/ONrMoNGJXWcAgC9rXKC9SAFAFQwXPjESb359BOr2yyD2/QxUtx6+3Hmdn9TpEeyQY8AJtZXUaL4zM5bvziuneX3RX6yFlbo0Mlod1P22ZQAxyqxlYhpfmVsiFgeyXYPMGs4YLd9w9nh5qdnguavdca0q8e6F2lGkrThVjr+vOxuHK81+2bgw6WMw/2bcg5YBnSSq1kqp/1nneuo3SwzLW8usToqqaqKsBhslNtqQWG+jJJsLkTYnRdhVhNtdFO7SEEYERgROABcEzgBSJNgNMuyKxOyKBIfM4Qg3srpoM8qjTKziSJWYaTawhrPHSysUifk8FewtFY1i+Oub1Yd/sdhwWTDad7goZkO+9ujBCnF92/LthQI5yQxmA8OoRP7fBWPkTiMt1DRR4tX/tG8qqaWszuqclvAl/jXtcr9su3XLR9hSO9+vdwYjAzZSfoONEgpqxaTSBhrz7++cr1c1UVZZA41qtLvP+8KNqIsMY5VRJlSaDKzRpKApTGHN0SZWwbnbv5gdn38xgDSC7NJgVDUYXRoZbS5EqBqMR6spptZKadXNlHFc2Oy1TeojYTKao82sPNqM8mgTK48ysYoYMytrFXW02V0WZUKlzFmvPJuSInl+gw2JDTZKjDKxyt5/99pjVFjd/NHyj7MTxJvfH1Kfa3YgEwDSohlK6wnZiQxdhWx1uCjs7ucdH3UlUgBYV7UEO+tmY0qM72vP5emv6kLFABlRG+0Uv7dULDhaLaYV1NDkghoxubYFqZFhqMqK47tSotjBlCh2cNUB7YZfnqlcHB/OChXJ9/SJvvDiD67HZ2bxD+MsrLi2hdJqrUirtZL7Xwud+LiuBSmCcGL3RGJQ02JYXmYs250Zy3dnxLLcjDi+O9aMUn/yfH6+R71LE5DPnyQ/GsivqyMujSzbCrQHc0vEzzQiaVM+YfZwhsU58pXZiZJH5HoiYve+4nzji+3aFb60PyduJVbMuMhne5zCgHNWH0CDy+8wW4OKkBxRHSqZ95eLU3NLxOLcErE4v5qmxlpQkhnHdw2PZzvmj1ZezopjO1Oi2KHWX3aHSqbdxeKslCh+uLv2/YWIWF65OP26U+RfSJypqdE42FldTZDUaEficeGmnhQx0naXiMWrD9F1tVZK4wxaZizfnRnH3OKN5buHxbC9YYr3+MWnjJDeefRb5/+CLVRFYtY5I+RfZSeK19Yd1p6JtWiza5rR6Yj61OeuB30VKQBsrFmIPfXTMSF6m0/1DdyJ5emv4JX8n/vaxaAkJIRKROxoNU3fXSzO3F0iFhfViQnZCXzz+FS++po58q8yY/mu18SQTwAAH69JREFUiDDmJVDJSfaXi3nD49n2YNh3rIampEaz/RLv/txW4kyLMaMsxszKRnbidEdErLYFqceqxdSj1TRtW4FY+u429Q81VqQnR7HDmbFsd0Ysz82IZbsz49juxAiWH2NmZYrEHHUtlBJjZkF3aYwP5zuXTWZzo83sD+9tV38baWIefwA/2axe8+xXqu+RHAAADC8e/SUenXalz29ckfEM3jh2G1zBdw4LWQImVCJizQ5kVjaJ2XUtNL7RhhGaIBMB3KSwSpMBFSaFVZgMrNysoMJkYBUSo+q1h8XV3x/SrjEbWP2ENP7dlbPk/xsRz7b7Ioq27CwSZ0/L4J8G6utpy+Zj2vK5IySfQqr4AmOM4iwoibNIJdMzccLmRjvF51eLqc+scb0AAGsP01VlDTQqTIY1I5bltjgR9d529b65I6W3M2JZbriRBfWKCWNMzB8tP/BNnrakxYkwY5vflm1HtHn3v+l8oSftrq06B4XWEciw+HYbLyGsHBekv4b3inoU1GNQ0Ks1qt1FcYW14tyiWjqvrFHM8+WCNRGh0Q7YXcgfl8JfGJcifZ+dyDb1Zk1JROz+T5xr7l9qWOivwH3h/k8ca353jmGJQWZB9xSvaBQjnlurPvP78wxnAUCLkyKP1dCU/GoxNb9aTMuvpmnF9TRWEKQ4C4ozY/nuEQlsa04y/2FUIt9oNrCAX+T8Nk+92epAzLIp8iMAUFglsq9+1L6x3uq/W2Erlwz7D+4d90uf65fb0nDRuu1wirCedjmg8XtEFURSQQ0t21uq3VHWQGeQj2exqkYob3QfosdamPO2M5Tz4sJ5XvdvdmuPvDJPfTAijCEYIs2vFlOTI/mhvhApAHybp/1kYY50YqQyG1jjuBT2/bgUfuKCgkMlU2EtTcyvFtPya2jqjiJx7ke7tHs0ASUjlu3OSeY/jEniP+Qk83Xx4ayotzbNHSm9/eCnzlUXTJb+bnPCfOdzjk96I1IA+LT0R7ht1B8RqXSbCQQAkGwqweUZz+K/x+7utI7EXMgO34sJ0dswPmobwngLDjRNxsHGidjdMBNWNeiu4UHDZ6EKIimvTNyyu0T7ZZMdPqdEbLITShsIRO5cL+kxHLOypN/3VqRExApq6YJN+erD64+IMaeOlD7vTXudsXK/dtO8Uf6FN+kpdhdZdhSJcy6fKXe57jPKzDYqkW0elcg3t5apgpSiWhq/r0zMzy0Ri9YcdF1rcyEiOZIdGZfCV49L4WvGpfI1CeGsy0xp3jAbWGNyJDtcWEcTXvrKdXd+BXUZpM0X7JoFn5RchauynvT5nRtG/BOflFyFeld8u/JYQyUuSn8Jl2S8gHhj+xxTZ6W4kxfUOBLw97y/49uK5RiI8Zh8mvo22Slr1QH11fJG372AmuyEYzUEi5EhPdodSAsA4ixs14VT5Jm8F2eL1c1i2oaj2mNlDXS6SyPsKCJcOIV/dd5EQ7eBtv3BoZL5/z5wbv77xYbJUndRqwPAl3vV2x0qzMsmyx5JjP1FEyQfqaIZe0rFwtwSsehAhTjVpcGYGMHyJ6bxlRPT+LcTUvkqX89l1x7SrlqVqy19d7Xq8w5vd2SaD+G9ef65a39YfC3+tPcJAEBO5A5ckfEszkp5Dwbu28ppTeU5uG/3f2DTBlaeqW6FeqRKu+z7Q9rzLs23eKuaIJTUAwYZSIxwX/g+0Rkglk2R5yRGcL/TWQCAzUmJWwq0P+8vFzfi+J/Fwlp3gqfJ6Xzj8imKX/F+u4KI2Lvb1cfLG2nEnQsMXaZwDASCiN/7vnPr/UsNCy1G5tt80A+cKoUdqBBz95SKRXtKxMLDVTRTEKSsOLZrYhr/dmIa/3ZcCv/eKHuPyn+4XJt42SOOHaoK3wP/+sCzM8/F9Nhuc0G346lD92Fu/LeYErOxR32+X3Q9/rLv3z16t7/ocuq7v1y76ftD2vO+NlbXQqhvcUe2ax1B2zIhlT/eE5EKInlfmbh16zHtj04NJxYaqiCUNxJmZDLIHDZ/2+2M4jqxePMx7W/f5GnTl032POQPBtsKxNKcZL4uGCIFAIPM7BPTpO8mpknfYaZ7kyqvTJyeWyoW7S4WZ36yW/ulIsExLoWvmZzOv5oyjH+ZHs3yGGOkCZL+9LbryUCLFAA+Lrnab6HeNupPverzomEv4/uqc7CuKqATsKDS6YhaaxXj39+hbhc+ROBzaYTiOndc2tb4sB2JDMPhi6cpU/xJSAwAlU1i5veHtP/UegmudaRKwCgzpMcwZMSyz84er/ic7c0btVYxcVO+9khRHZ3d7CDkVxOWTpI+WjJOWd792z2HiNgDnzpX33qGckNyJO80D2owabBRwt5SsSC3VCxac1C7zqXBGGdB8dQM6fPSEmH+YL0WlJtDJqkZ3yzI/v/2zjy8repM4++5V7u8xvsaL9ljh2wQIEmBFpgCgbKGtVAKJQm0pQuF6QwDU6alAy10YR4Iw9KZp1MKhDVQykALJSkxCSEktomTOJZXWbJl2ZZtWdu955s/FMeblitZshWNfn8l0r3nHEV5db57znfeDzoxZr+zirB78nDZrnp4+PhBgULVYVilZbM6DqUEXbE92sNvUyJS27BfpGXZwUXKAH7uYtUtkYhUkklfZ5Iee/Og9Ekgkbp9hL4RoPjEWRatKnRCRChcXsrf3Sxtf/WAdLDzREEp8wChfB6Dxzez1U0l7G/nlxZlCsfmSqQAkKlntrOrxZe/vFh8bnGB8PGT12srrl2r/pc2K6+Kl0gBwCWn4aPei+LVfFBytDZ8tWgHBPiwUvcavpNzIe7NOwvlasV+cLNKUKGGK43gkQjHezlUIlCZyyY52U/ltFLh0cIMQbEJzoibynfWS7sbzPwHwbZ/TH2ERQXs5DNwqKTxYHBO6nqz/P0X9/uam6x8y1hfbh+drOrmkRDXY20yJ/GVA9KD16xW/SSe/SiBiNgf9kqP3LROdV9eOmtfWy68fvCL6D2blPJhT0i3lrjgk4BNmT/F/fkrcHP2rajU+A8KbDRun/WxKCHoM6rDRQG/ICKCxeF3V6/MHa9ZEowcIzu0Zr74r0oHNOSiqjcP+epcvuDVpQecBAKQbRjvO5wf0FS6Bvj5e0zSbwdHsXTqe612QmmWv22VgLjsn8qcNK12fuXOQ9JDuWnoy0ljQR0XZovPOvimbAMs1XnCfgB47A3vL8OdiIkFZlfcuzjJiAsw9wG9gwBRL7KmPHWv1L2OncJPMczj7psXEUGFKnMETAHpHAAy9UBxVvi9KJUA51eWqK4VBWVnNyWZDP97WNoZSqQeiXCkh7CmfHL/BRlCnZI+ht00/xOT9HirnQIe4XB5CQNOYHHBic8gImxd1EgY9VJBk4VvOWyRt414qLDBTNjyJdXvY9lHNMicVC/tlx665wL1lQBQ3yaf+VqdfHu8+mPgODPnA1w3/ymsz5vmDhtTiAD7kF+gjjAPXyKTsN7wHN4d+ee4jilSggrVoIF1yI3qqa+Xz1O+WbxhgXhnloEpnumO9PDbBkZpebD3OREazf6Qd+KqcroOpjRt6AwcTiQe7uZ37WuTH5Y4jMGuM/URqvLGQ2qVgIgWv4Ix5KLqQ13yj4718G/IBC0AdA0AhRkMWfr4J9mH44Mj8m01xcKHBRlCq8xJ/NnL3ifj0Y9eHMElxS/iuvLtqEiL+GklInwSYO0Huu2AJ4Jd+7MMv8P7I/dARuIcAggq1OIs4YMhK58mVKUsLxL+Y1GBGLK47kQ4kaqhS/5BqGtabIScNIYc4+Qfi4p5ws5Q9/U7ec2uZvnZ3mFaF+o6p4cw6gWWTSgUOJNFqrG+D3byf2yx8esnPm/7ZH/G1hkVDBqROUK1EW8GR6ngnUb57ocu02wAgB1/l7Y2dUVeEzY0hKvKnse3F/4E6er4flynG+juA3oGAB5FKnu6aMMq/WvY77o+9oOLkqBCXVwg/O6IlX8rmkarcoWXz6oWvxfJPd2DdO5wkBKMgH912eUDFgQ4OjY/RwjqBn+sR755d7P8n2OzWCha+ggL8xkmlhOMZpEKAHqH+RkHO+Uft9kp4NbOsV5CRY7/GV+jQlz2TpXy/B7fE5vXqh5M17F++xAVPPEn389i2X6OxooHau6Ka4hLBPQP+8PbQUV13kOz0bgd+13XIVHSDYMKtSBDqFteLDzxRTf/TiQN1hQLv1lXKd4Xae1S2widHup9jQpYVjRZRABg1KKzMJNN2zHnRKpPTPJjjd38u0r6H3YTGHCyePEYkRRbAgCrg2/4rEN+0DxIQc3I+kYIkgwUnsj1mkuhfnhUumvYTaVnVgqvAMDjO72PDrsQs+z1dNUAfn/WucjXxSe6l+Tx8NYdQ0+PMvVBVKj3os2nqLxr3AmZmXR2lXh3jpHVf9Iq/8IbYpuCAbw0m71bWyL+qjRbiOpns284tEdvpj7wL1tNsfiEEMCIe69J/oVSkRKRf7snf3ofWQZ2WEkbfSN85adt8s86B+jiUNf5ZEJzL2F1+fiPzmyHvsNuqmix8eu+sMhff/8wX3bjGeLTjDH6rEXe+NY+OaiBWTTcvfiBuIh01O0XZ88AIMfJqHCjcTvaBk8BoTLGaEmh+Gz5POHtJgvfMuiixUMuWuiWKCddy9oy9Kwl28Aaq3KFHUYt657JQEKt9AZDJcC5pFCYluJ41Crf2tDNFYfe5kHAoAH0mslCVYsYnmdkIat9j3qpsM4kP95i44oeaI72ECpzGbQTFsO0szCjeiXKMPXxq5t7+S0WB30JAJosHOXzGHLThXZJJtXDO7zKj7IoYE32blxeqniZIixEwMCIP7wdGI5Zs0FZoduJTMEMB59xoYIZo+iYm0HDrGvmi3HdkNepYYv0nsWFwvNa1eTcWEkm/d42+RGlbYx4CO39hHUV02fTggy2J1gIT0Ssxcav/7hFfsIjQZHzlm2YwLl/pXcMtYgRrRp2peONBCJi1iHaeMTKbzP18WtkDv3YewOjBKcXWFII6FToe3WPdEdzN9XGsv+Li1+KSTuSDPQOAGY74Jo1k1ZAZDLWG5/FO8MPzl6nQUgIzyQA0KtZrxL39DHSdTCdPl+cdm7zWC+/WWmJQJn7t3uWFwXOrCrLFv4c6D5OJO5qlp+d6oMbCp9MOG6bvv+bm8Y+i/R5PhwuL+U19/Kbm6zyHQ4XFk19X+aEI1bCihJ/+C0yOJ55T4q5adrC9JDBSFhcHn94a+2PX3gbjjMN/4X3hu+FNP4bNyckjFAX5AsvNFn5FiXXCgze85eoNmtUk5/tiEhoMMuK/T2O9RAKM9m0BaQxKgKsJhOREKlIifzCqMpl004VFWcKf1PaTpg+mMVB5zZZ+R2tffwqTlAHu/a4jVCYwWDU+sfyYb18Zq9j5oWoJiIyCdVpkXsDEPlXbbvt/iSFWKPSZkDyKG84TejHav0r2OeatWJ+AUkYoRZlCrvmz2M72/spbOLnmVXiPXnpwjS/yb4RWu1wIXQp6xP0DBE8kj/0C0RuGjuQrmPtU19v6OZ3RyJSAGizA6IAFGRM/0EoyWbvRdLWVLwSZR6x8tubrPIWJZ/d4iA4PcCiMv/fZZnw6m4emX29AgTIEJjyaVDmJ8LbPmA0xuEtYyJyK89BWe210Kbloe6Fq4EIishvNG7HPtdNmMutmoQRKgCcXa367pBbqg6WnZShw/G188UHqvOEFwO9bxshRXYBLq//CNua+dO3e8YI1IfbRzkHOuQHlPQxRvcgweEirCid3o9ejZ78dBZVybIhF1U1dsvfPdrDb/PJUGRXMHTCdWPthM99vJOGex0U1pQuUnykxbHhGizP/DzkdW7veHgrxdhDQ63LRNHSr6G05mro0gpOvp5bvh597crrr5aoG1Gl+Rgm74bYDjACEkqo6TrWfvlK1bomC9/S3MtvGhylZTJBm6ZFx8oy8eElBcLzoSxcbMPhhcqJ8IWFsLSIQR3kxI9KwOjiAmGaFeaBDvmBUNtUU+kbIZgdhNVlbJLTxRjVecJLkT6f9o3wlZ93yve39dEVSo3lAMArERq7CSuKxz+3zAmfHuZBQ+SZ0uhYG1CoRP6c22470BeHjSnjvAUorb0GhYu+ClE1PWW9dMXmiIQKABsNT6eEOhG1yJwrSsXHV5SKj3MiEQALtE8aiL4RWhPuGvMgkJ/Ogu7LAv6sLJ16curgqJcKv7DwO5WMA/BXRW+xEVaVBT9htKRQeFZpey4v5e9vl/+tyZ8tFlEMxonQYCZU5zKk6cZvbWolDDoDH76IBZ/1b8C15eO7ZzIHbIP+8NYZ6zNJTEDu/A0orb0W80pD/17PKz0DxnlVcPYr8xUGgFrd28gWOzAgl890pFGRcEKdSKSzDafwn6ckK+z/cqopEacZ6nT084tJQfsAMOolNFkIp5VNXzwaozCD/X2eUVC0LHrYIm/d2yo/otS3airNvYQM/eRnZJkTPjsS36XUj3ovgc1diAzRCosdsNgBX4zDW5UmHUVLL0VpzTXQZyiP4EtrNuPorn9XfL3AONYbnsXbww9FM8wZk9BCjRSdGn3hrgkUgk5k/jz2dqD83o5+rsjmxSsR6s2E5cUMenXwvpYVCU+Fa4uIhE9a5V82mHnUhVfGFo9WlU0eS1MbYTimB/imQihVfY66lhxky9YINt6UYciuQGnNNShafAlEdeRbJ4WLLkLL3icjWgE+0/DfeG/kPngp6OGruJFUQtWrmS2SvdipqAQ411Wq7p36usxJax6kC5S00Wr3pyKm64KL1KhFZ2Wu8GqodohI+OCo/IcWG4/annPINX3x6ETbOHQsPrOpCA9W6t7ARuNTKNd8Dsgz+UamwpBTfhZKa69FTvnMUvtEtQ7FSy5FxyHlls0GYRBr9C+jbvTWGfUdDUkl1AwdZuQ5tHGhuDXLwI5MfX3IjSqlK6uL8oOvJI9x+nzx/nCH6b+w8DtnIlKvRGi0TF48GsNij18K3iLtR7gx+46YtimqDShasgmlNdfAkBW7Z8SSmqvRWf8iiJTH4xsN21E3+g3M9laN4lXDU4GaEvHX0R70XlwgPLcwX/yfQO8RkeJ/p3AizTGyQwvzhYD9jDHspop9rbLyB6gpuH2EA52EBXmTF4/G+MIUv2fTI57z0ScpLqQQEn1mGRau/z7W3/w2Fm34YUxFCgD6jGLkVES2kluoPoKFmo9iOg4lJJVQDRrWc1qp+Gik92UbWOP6ajHUSZuY/XyuqxTvZSx4JgARsV3N0jOhXChC4fQQDnQQFuYx5KdPH7bbSzjeGb/i1QQBu52KEsyCklW0Cisuegxn3fAKylZcB5Umfs+EZbWbI75nLgzQkkqoALCiVHgsS49p4WswSrLYXy9cprpCJQZ2iI8lpVnsvdJsIWQm0nEbvyHUWdZQOFyEQ13+haycINatR9sp7nmz+1w3ws2jLxmRXbIWuRHOdDPpyzgvMqPFZdp3kSO2xmlEgUk6oapF5rx8pfqM6jwhpMN9Xhr79JJa1fmX1KrPzwxQpHciGXp2XK+GohotwUjTouOcRaqwqxCHLXxbNO33jfgTOU4rDb5HTERxDXvH8FAG9rlujPp+8+HXwOWoSxNFTKSzqsAI6w2KC0jEhKQTKgBoVGz4K0tUN2xeo156WqnwaHEm+zBNi44MHVoKM9juC5aqrrp8pWpdSZbwVyXtqQTmXlYkRn1WU6vCwEXL1ReFO7PrcNGCniFaH2n7Foc/uWJ12XiifSCs/UB/HBLdA/GxM/oFJe+oHb0t8XUmnEjBon+AWheZqcU6w++hZbNwKPYESbXqO5UsAzuyrlJ1XyzaWlYkPHWwU/4nJd5LExEZPBcuU30t2xjeKaK5V474iEa7nWAb8TtGBEuJHGM2ZtMxbPICHHZfiGW66M4cdDXsQOGi2XHQF1U6FC25FB0HQ67xTUIvDGGt/kV8PBqVrVjEJOWMGg/0GmY7vVL8cYS30XlLVDcWZQphE0uJSGju4YptUIgIx3o4Bl3+NMVwIvXEeREpELudW6O+d6j3Czh6GmM4msA4B1pxdNcjMDeG3NYOyAbj02AY//HTcBtUFJ9ZNqln1FizokT8lUaEY0+L/ITEYQh2ncDgq8oVdtSUCL/JTx8vNhyKEQ/KQ7kwTqXJSifGFH7fFgBaLRTz0ynhOOY9Dz3SQhSoovPv7ap/CZkX1MR4VAARh719D7oaXkJ/l6KvJyAFqmYs0n4AqzMPVe7tKPHsQJPhQbToI/IDVISiQsYpJuPyUn69Wf5hm51fMfEMqEEDy9JC8emlRcLTBg2zRtJm3whf/drn0rQztsEYchHSdeH3bcf4c52Mlq7Z/67XG57BVZn3RHUvE1Q4+6Y3oTXmhr9YAZLXCcuRt9DV+ApcjpB+7WEhIvQNAc22LPjc425ATmE+/pJ1EGCxrVCZEuoMcXkp3+WjfCKIWQbWJAosKtPKrgF+/juN0vuxHh/gPxz+3Fuy7PXFvr5pODRsBA/mL4VeiG4Vq2LNN1F1xsz2ZUcHO9DVuAOWI29D9s1sF84nESwDQHd/cPf9vekvwKqZUQXQaaRC3xmi17BevYbNaOsGADwSKTJIiwZLH7m9vvgdZwuFl9Kwd/TrODctukVz8+E3ULHmVghi2Aqg07B37kVX/Yuwd9RhphnHTjfBbAd6BsO771e5nkoJNVmJ5EB6pIwMYz+AOTv1/PHot/Al45MQWORi8bn60XP8fRQtvkTR9bLPBcvRP6GrYQdGB9si7m8iRIT+YaDLDgxGkJiaJ+1GhtSIIVXsnq9TQk0Q8jPYJ/FoNzcN++pNPDbJt1Filytx2HMRanTvRHV/V8PLYYXqGur2h7dNb0HyzmzlVZIJ1gHA3B+9+36V+ykcjDKKCERqeyZByDEK9TlGdiiWbRo0sJSmiT/vdWDOHaRnkv87bDuCQUvgf5r+rv2o//OPUPfCVeg89MKMRDrqITR3E+qOAi3WmZXIKPW8DA0PezxaMSmhJhAL84WY2cobNTBvqlWf+9lxvjJWbc6EZu85sPim1YxWTFfDyyf/LEtumA+/gb0v3YCDb92FvrZdEbkKTsQf3hIa2gifNvsXiXgM8kJEeJDvU5T4pohU6JtALMgXXtjbKv8iEtOyQBi16NxUq/5ypp4d/1uDFNZ+dXZg2O3cgs1ZERX5O4mt9UM4rA2wte1C9+E3InJmCIQkE3oGT7jvx7C4lAQjOrQ3oFW/BSPiNO/zqEltzyQYDWb5e3Um+VfR3p+mRcemWvV5GXpmsg9RwXn3uyLaz40nGubEA/nLYBDmrsqky0Po7gcsMS4u5RQq0Kq7A+3amyAJsV8XTM2oCUZtifhriUP/aZv8cKT3pmvRtmmF+rx0HWsDgIZ2OWTh5tnGS0Z8MnoLvpw2zTsurhARBp3+2dMe4ww/m+ocmPRbYVV/NeZJDhNJCTUBWVUm/jw/ne3d0yL/NpgZ+RgM4CVZ7C/V+cIfK3OE1zQqdjImrG/nCSVUAPh49Haca3wiIhf9aJH5eHgbS/d9CXp0aa+FSbcFw6qQX0/MSAk1QSnJEj64ahVb1WrnV7b10RUdA/yiiXahBRlsT3We8MeqXGGHQcN6ArVR38YTo7jnBAbkcjS4N+E0/c649eH2joe3scxvHhVK0ar7Ftq1t8AnxC0/JSCpZ9RTBE4kun3IdfsoTyOyoTQd6wh1vcxJ3HCfa8DpQfpsjVEpVZq/49s5yhIYlEJEcIz6Z8++GJ+5tavOQotuG6yaTSA2N3NbakY9RRAYkw0a9ASbPafS2kNLElGkAGDyrofZV4sS9czKMgIA54Reh1+gIzF035ehgVl7NUy6bXCoTotdw1GSEmqS0pCAz6fj+Ldqrsv6dtQteHwnwtv+2Lrvu1gh2nS3o013K7yCojK7s0JKqElKQ1siCxU44LoamzIeQJrQH/7iCQyN+pPjbY5YGnsD/aq1MOm2oVvzNRCL/ABAvEkJNUlJtK2ZqUjQo855Ky5IfyzstZwTbEP+8HbYFbsxcKhg1lwJk24rBtWKKnbOGanFpCRk1EPGs+91DXFK7BTRTMGM+/NrIQapBeaVxsNbr6J6fspwszy0676JVt1t8AhBKlknGKkZNQlp66XFiS5SAHDwEtS7L8Mq/euTXh92+cPbXoe/lmqsGBRXwqTfBrPmSnAWkUfdnJMSahLS3c8r5noMStnt3IZV+tfBiWAf8p/9HIqhFTqHCIvmMph029CvWgcotK5JNFJCTULMdprT86eR0O2pRoO1CM7BbnhiGN56WTbatLeiVXc73GJp7BqeI1JCTUJOBaFmSI2odD+NMs9L6EfsNkAd4nKYdFvRpd0MziKvm5qopISahJjtc+voEA4t78U5jo0QEJsNUIIAq+ZitOi2wa7acMqGt6FICTUJSfQZ1SPkw6rZhGLvmzNqx8uy0KH9Oky6O+AS58dodIlJSqhJBhGx7n6qmOtxhMOk2xq1UIfFxTDptqBTez1kFr+SjIlESqhJRv8w8t0+JPzDmV11NgbFFciS6xVdT2DoUV8Ik24bbOrzkjK8DUVKqEmGuT+xn09PwhhMuq1Y7bwz5GU+lo4O7Y1o1W2BU6yepcElHimhJhlme+KHvWOYtVdh+ej90NL0fN8RoQom3VZ0am+AJGQEuPv/FymhJhkOJ+XM9RiUwpke7bpvYpHrlydf61V/BSbdVvSoLwBYwidXzRopoSYZLi9OqdWVVu1tqHQ/gy7NNTDptmBEtXiuh5SQpISaZLi8dEoJ1S2W4N3sZnA2J6VxThlSsUWScarNqABSIlVASqhJhssbvMByilOXlFCTjFMt9E2hjJRQkwyX59QLfVOEJyXUJCM1oyYnKaEmGafiYlKK8KSEmmS4U4tJScn/AchY+1RVX1HeAAAAAElFTkSuQmCC" alt="富途大象财富 logo">
+    <div>
+      <div class="c-name">富途大象财富</div>
+      <div class="c-tag">大音希声，大象无形</div>
+    </div>
+  </div>
+  <div class="eyebrow">Curated Fund Guide · 2026年10月</div>
+  <h1>精选基金详解</h1>
+  <p class="sub">对宏观与资产配置报告中 22 只精选基金（HK / SG 双通道）的逐一拆解：定位、策略、关键数据与配置角色——每只基金回答三个问题：它是什么、为什么入选、在你的组合里扮演什么角色。</p>
+  <p class="meta">框架版本 v0.1（数据字段待接入晨星 Direct / 基金公司官网口径）· 上级报告：<a href="/">全球宏观与资产配置分析</a></p>
+  <div class="c-note">如有疑问，联系飞书@donaldzhang</div>
+</header>
+
+<!-- ===================== 01 精选方法 ===================== -->
+<section id="sec-method">
+  <h2 class="sec"><span class="no">01</span>精选方法与映射</h2>
+  <p class="sec-desc">这 22 只基金不是"好基金榜单"，而是<b>把宏观报告的配置观点翻译成可投标的</b>的结果。三步筛选：</p>
+  <div class="card">
+    <div class="concl"><div class="n">1</div><div class="t"><b>观点映射</b>——每只基金对应总报告配置矩阵中的一条观点（全球股票↔景气牛盈利主线、美元短债↔短端积极配置、黄金↔回调分批、亚太股债收益↔防御与分散），配置逻辑先于基金选择。</div></div>
+    <div class="concl"><div class="n">2</div><div class="t"><b>通道可售</b>——HK、SG 两条代销通道各一份清单，覆盖同一配置功能；同一功能下 HK/SG 可互为替代。</div></div>
+    <div class="concl"><div class="n">3</div><div class="t"><b>质量核验（进行中）</b>——晨星评级、费率、规模、风险指标将逐一接入并标注数据日期；星级与费率不构成入选理由，只作核验与横向对比。</div></div>
+  </div>
+  <p class="sec-desc" style="margin-top:14px">下文每个分组先给"配置角色"，再逐只拆解。<span style="color:var(--ink-3)">标注 <b>待补</b> 的字段为待接入数据。</span></p>
+</section>
+
+<!-- ===================== 02-04 基金分组（JS 渲染） ===================== -->
+<section id="sec-equity">
+  <h2 class="sec"><span class="no">02</span>股票基金</h2>
+  <p class="sec-desc">承担组合的进攻端：全球股票对应"景气牛由盈利驱动"的主线，亚洲高息与新兴市场对应分散与估值期权，黄金行业基金直接对应总报告的黄金配置观点。</p>
+  <div id="grp-equity"></div>
+</section>
+
+<section id="sec-bond">
+  <h2 class="sec"><span class="no">03</span>债券基金</h2>
+  <p class="sec-desc">承担组合的防御端：美元短债对应"看好短端（2–5年）"的积极配置，全球债券对应投资级信用防御持有——在"更高更久"的利率环境下用短久期锁收益。</p>
+  <div id="grp-bond"></div>
+</section>
+
+<section id="sec-mix">
+  <h2 class="sec"><span class="no">04</span>混合 / 另类基金</h2>
+  <p class="sec-desc">股债之间的"缓冲层"：多元收益策略同时持有股票与债券、动态再平衡，在滞胀环境中提供比纯债更有弹性、比纯股更抗跌的中间选择。</p>
+  <div id="grp-mix"></div>
+</section>
+
+<!-- ===================== 05 横向对比（JS 渲染） ===================== -->
+<section id="sec-cmp">
+  <h2 class="sec"><span class="no">05</span>横向对比</h2>
+  <p class="sec-desc">22 只基金的关键字段一览（数据接入后可排序）。费率与评级是"核验项"而非"入选理由"——见 01 节方法说明。</p>
+  <div class="card">
+    <div class="tblwrap">
+      <table class="cmp" id="cmpTable"></table>
+    </div>
+    <p class="note-src" id="cmpNote"></p>
+  </div>
+</section>
+
+<!-- ===================== 06 组合示例 ===================== -->
+<section id="sec-portfolio">
+  <h2 class="sec"><span class="no">06</span>组合构建示例（框架）</h2>
+  <p class="sec-desc">三个风险档位的示例组合，展示如何把 22 只基金组装成与总报告配置观点一致的整体。权重为示意，实际配置需结合个人风险测评。</p>
+  <div class="grid" style="display:grid;gap:14px;grid-template-columns:repeat(3,1fr)" id="portfolioGrid"></div>
+</section>
+
+<footer>
+  <div class="wrap">
+  <b>数据来源与口径：</b>基金名称与通道信息来自富途代销精选清单（2026-10）；关键数据字段（净值/收益/费率/评级/规模）待接入晨星 Direct 或基金公司官网口径，接入后逐字段标注日期。<br>
+  <b>相关页面：</b><a href="/">全球宏观与资产配置分析（上级报告）</a> · <a href="https://github.com/ftwealthmanagement/ftwealthmanagement.github.io">GitHub 仓库</a><br>
+  <div class="dis">免责声明：本页面为信息整理与研究参考，非投资建议、亦非任何基金的销售要约。基金过往表现不代表未来收益，投资涉及风险，包括本金损失。申购前请阅读基金章程、产品资料概要及KYC文件。市场有风险，决策需独立。</div>
+  </div>
+</footer>
+</div>
+
+<script>window.GMR_I18N = {"精选基金详解 · 富途大象财富":"Curated Fund Guide · Moomoo Wealth Management","精选基金详解":"Curated Fund Guide","富途大象财富 · 基金详解":"Moomoo WM · Fund Guide","富途大象财富":"Moomoo Wealth Management","大音希声，大象无形":"Still waters run deep.","Curated Fund Guide · 2026年10月":"Curated Fund Guide · October 2026","对宏观与资产配置报告中 22 只精选基金（HK / SG 双通道）的逐一拆解：定位、策略、关键数据与配置角色——每只基金回答三个问题：它是什么、为什么入选、在你的组合里扮演什么角色。":"A fund-by-fund breakdown of the 22 curated funds (HK/SG channels) from the macro & asset allocation report: positioning, strategy, key data and portfolio role — each fund answers three questions: what it is, why it was picked, and what role it plays in your portfolio.","框架版本 v0.1（数据字段待接入晨星 Direct / 基金公司官网口径）· 上级报告：":"Framework v0.1 (data fields pending Morningstar Direct / manager-site integration) · Parent report: ","全球宏观与资产配置分析":"Global Macro & Asset Allocation Analysis","如有疑问，联系飞书@donaldzhang":"Questions? Contact donaldzhang on Feishu (Lark)","精选方法":"Method","股票基金":"Equity Funds","债券基金":"Bond Funds","混合另类":"Multi-asset","横向对比":"Comparison","组合示例":"Portfolios","← 返回总报告":"← Main report","🌓 明暗切换":"🌓 Theme","⬇ 下载报告":"⬇ Download PDF","精选方法与映射":"Method & Mapping","这 22 只基金不是\"好基金榜单\"，而是":"These 22 funds are not a \"best funds\" list — they are the result of ","把宏观报告的配置观点翻译成可投标的":"translating the macro report's allocation views into investable vehicles","的结果。三步筛选：":". Three steps:","观点映射":"View mapping","——每只基金对应总报告配置矩阵中的一条观点（全球股票↔景气牛盈利主线、美元短债↔短端积极配置、黄金↔回调分批、亚太股债收益↔防御与分散），配置逻辑先于基金选择。":"— every fund maps to one view in the main report's allocation matrix (global equities ↔ earnings-driven bull; USD short duration ↔ accumulate the front end; gold ↔ scale in on dips; Asia-Pacific equity-bond income ↔ defense & diversification). The allocation logic comes before the fund choice.","通道可售":"Channel availability","——HK、SG 两条代销通道各一份清单，覆盖同一配置功能；同一功能下 HK/SG 可互为替代。":"— one list per distribution channel (HK/SG) covering the same allocation functions; HK and SG options are interchangeable within a function.","质量核验（进行中）":"Quality vetting (in progress)","——晨星评级、费率、规模、风险指标将逐一接入并标注数据日期；星级与费率不构成入选理由，只作核验与横向对比。":"— Morningstar ratings, fees, AUM and risk metrics will be added with as-of dates; stars and fees are vetting inputs, not selection reasons.","下文每个分组先给\"配置角色\"，再逐只拆解。":"Each group below starts with its allocation role, then breaks down fund by fund.","承担组合的进攻端：全球股票对应\"景气牛由盈利驱动\"的主线，亚洲高息与新兴市场对应分散与估值期权，黄金行业基金直接对应总报告的黄金配置观点。":"The offense: global equities express the earnings-driven bull thesis; Asian high-dividend and EM funds add diversification and a valuation option; gold-miner funds express the main report's gold view directly.","承担组合的防御端：美元短债对应\"看好短端（2–5年）\"的积极配置，全球债券对应投资级信用防御持有——在\"更高更久\"的利率环境下用短久期锁收益。":"The defense: USD short-duration funds express the \"accumulate the front end (2–5Y)\" view, and global bond funds express the defensive IG-credit hold — locking in yield with short duration in a higher-for-longer world.","股债之间的\"缓冲层\"：多元收益策略同时持有股票与债券、动态再平衡，在滞胀环境中提供比纯债更有弹性、比纯股更抗跌的中间选择。":"The buffer between stocks and bonds: multi-asset income strategies hold both with dynamic rebalancing — more resilient than pure bonds, more defensive than pure equities, in a stagflationary environment.","混合 / 另类基金":"Multi-Asset / Alternatives","全球股票":"Global equities","亚洲&新兴市场股票":"Asia & EM equities","行业（黄金主题）":"Sector (gold theme)","美元短债":"USD short duration","全球债券":"Global bonds","股债多元收益":"Multi-asset income","对应观点：":"View mapped: ","景气牛由盈利驱动":"An earnings-driven bull market","——全球股票是组合的长期中枢，用系统化选股与高股息因子增强防御性。":" — global equities are the portfolio's long-term core, with systematic stock-picking and a dividend factor for defensiveness.","亚太收益与分散化":"Asia-Pacific income & diversification","——亚洲高息资产提供股息保护，新兴市场对应估值期权与美元信用对冲需求。":" — Asian high-yield assets give dividend protection; EMs offer a valuation option and a dollar-credit hedge.","黄金回调分批配置":"Scale into gold on pullbacks","——金矿股是带经营杠杆的黄金敞口，波动大于金价本身，适合作为黄金观点的进攻表达。":" — gold miners are bullion exposure with operating leverage, more volatile than the metal itself: the aggressive expression of the gold view.","美债短端积极配置（2–5年）":"Accumulate the front end (2–5Y)","——短久期锁定 4%+ 票息，对期限溢价免疫，再投资风险低。":" — short duration locks 4%+ coupons, is immune to the term premium, with low reinvestment risk.","信用债防御持有（投资级）":"Defensive hold in IG credit","——用投资级信用与全球化利差获取比短债略高的收益，但不拉长久期。":" — global IG credit and spreads earn a bit more than short bonds without stretching duration.","滞胀环境中的防御性收益":"Defensive carry in a stagflationary environment","——股债双源收益+动态资产配置，作为组合的中间层。":" — dual equity-bond income with dynamic asset allocation as the portfolio's middle layer.","5只":"5 funds","4只":"4 funds","3只":"3 funds","2只":"2 funds","净值":"NAV","年初至今":"YTD","近1年":"1Y","近3年":"3Y","经常性开支":"Ongoing charges","晨星评级":"Morningstar rating","规模(美元)":"AUM (USD)","待补":"TBD","基金":"Fund","通道":"Channel","22 只基金的关键字段一览（数据接入后可排序）。费率与评级是\"核验项\"而非\"入选理由\"——见 01 节方法说明。":"Key fields for all 22 funds (sortable once data lands). Fees and ratings are vetting inputs, not selection reasons — see Section 01.","注：数据接入后此表支持按列排序；星级为晨星口径（过往表现评级，非未来收益预测）。":"Note: column sorting arrives with the data; star ratings are Morningstar's backward-looking assessment, not a forecast.","组合构建示例（框架）":"Portfolio Examples (Framework)","三个风险档位的示例组合，展示如何把 22 只基金组装成与总报告配置观点一致的整体。权重为示意，实际配置需结合个人风险测评。":"Three risk-tier example portfolios showing how the 22 funds assemble into a whole consistent with the main report's views. Weights are illustrative; actual allocation requires a personal risk assessment.","稳健型":"Conservative","平衡型":"Balanced","进取型":"Growth","防御为主：短端锁票息，黄金/股票仅作点缀。":"Defense first: lock coupons at the front end; gold/equities as garnish.","攻守平衡：债券打底，全球与亚太股票提供盈利敞口。":"Balanced: a bond base with global and Asia-Pacific equity earnings exposure.","进攻为主：股票与黄金行业主导，债券仅作流动性缓冲。":"Offense first: equities and gold miners lead; bonds only as a liquidity buffer.","美元短债 55%":"USD short duration 55%","全球债券 25%":"Global bonds 25%","股债多元收益 15%":"Multi-asset income 15%","全球股票 5%":"Global equities 5%","美元短债 25%":"USD short duration 25%","全球债券 20%":"Global bonds 20%","股债多元收益 20%":"Multi-asset income 20%","全球股票 20%":"Global equities 20%","亚洲&黄金 15%":"Asia & gold 15%","全球股票 35%":"Global equities 35%","亚洲&黄金 25%":"Asia & gold 25%","全球债券 10%":"Global bonds 10%","美元短债 10%":"USD short duration 10%","数据来源与口径：":"Sources & definitions: ","基金名称与通道信息来自富途代销精选清单（2026-10）；关键数据字段（净值/收益/费率/评级/规模）待接入晨星 Direct 或基金公司官网口径，接入后逐字段标注日期。":"Fund names and channel info from the Futu distribution list (Oct 2026); key data fields (NAV/returns/fees/ratings/AUM) pending Morningstar Direct or manager-site integration, each to be dated on arrival.","相关页面：":"Related: ","免责声明：本页面为信息整理与研究参考，非投资建议、亦非任何基金的销售要约。基金过往表现不代表未来收益，投资涉及风险，包括本金损失。申购前请阅读基金章程、产品资料概要及KYC文件。市场有风险，决策需独立。":"Disclaimer: this page is research reference material, not investment advice nor an offer to sell any fund. Past performance does not predict future returns; investing involves risk, including loss of capital. Read the prospectus, offering documents and complete KYC before subscribing. Markets carry risk; decide independently.","贝莱德系统分析环球股票高息基金":"BlackRock Systematic International Equity High Dividend Fund","施罗德环球基金系列-环球持续增长":"Schroder Global Sustainable Growth Fund","广发全球精选股票基金":"GF Global Selected Equity Fund","摩根亚洲股票高息基金":"JPMorgan Asia Pacific High Dividend Equity Fund","资本集团新世界基金（卢森堡）":"Capital Group New World Fund (Luxembourg)","贝莱德世界黄金基金":"BlackRock World Gold Fund","泰康开泰海外短期债券基金":"Taikang Kaitai Overseas Short Duration Bond Fund","中国人寿富兰克林环球基金-短期债券基金":"China Life Franklin Global Fund - Short Duration Bond Fund","PIMCO GIS 收益基金 MDis":"PIMCO GIS Income Fund MDis","NB 策略收益基金 MDis":"Neuberger Berman Strategic Income Fund MDis","PIMCO 收益及增长基金":"PIMCO GIS Income & Growth Fund","惠理亚洲股债收益基金":"Value Partners Asian Equity and Bond Income Fund","东亚联丰亚太区多元收益基金":"BEA Union Asia Pacific Multi-Asset Income Fund","用系统化多因子模型在全球发达市场选高质量+高股息股票，兼攻兼守；高息因子在利率高位环境提供现金流缓冲。":"A systematic multi-factor model picking high-quality, high-dividend developed-market stocks — offense with a cushion; the dividend factor provides a cash-flow buffer while rates stay high.","全球成长型策略，质量成长股为主，适合作为全球股票配置中偏进攻的一翼。":"A global quality-growth strategy — the more aggressive sleeve of the global equity allocation.","中资管理人的全球精选策略，选股灵活、不锚定基准；兼具中国管理人视角。":"A Chinese manager's global best-ideas strategy, benchmark-agnostic, adding a China-based investment perspective.","全球多空/绝对收益型股票策略，目标是低相关的绝对回报，适合替代部分传统多头的敞口。":"A global long/short absolute-return equity strategy targeting low-correlation returns — a partial substitute for traditional long-only exposure.","亚太（日本除外为主）高股息股票组合，股息率显著高于全球平均；在利率高位环境里\"以息养跌\"。":"An ex-Japan Asia-Pacific high-dividend portfolio with a yield well above the global average — let the dividend carry the drawdown while rates stay high.","聚焦新兴市场与世界变革主题（基础设施、消费升级等），长线新兴市场成长敞口。":"Focused on EM and world-change themes (infrastructure, consumption upgrade) — long-horizon EM growth exposure.","亚洲收入型策略，股票+可转债+股息多源收益，波动低于纯股票组合。":"An Asian income strategy combining equities, convertibles and dividends — less volatile than a pure equity portfolio.","全球金矿股基金（Barrick/Newmont/Agnico 为前三大持仓），净值弹性约为金价的两倍；与央行购金主线共振。":"A global gold-miners fund (Barrick, Newmont and Agnico as the top three), roughly 2x the price elasticity of bullion; resonates with the central-bank buying theme.","与贝莱德世界黄金同功能的全球金矿股策略，SG 通道的对应选项。":"A global gold-miners strategy functionally equivalent to BlackRock World Gold — the SG-channel counterpart.","美元投资级短债组合，久期通常 1–2 年，主打\"类现金+\"收益。":"A USD investment-grade short-duration portfolio, typically 1–2y duration — \"cash-plus\" returns.","中资保险系管理人的美元短债策略，信用研究资源来自 Franklin Templeton 联盟。":"A USD short-duration strategy from a Chinese insurance-affiliated manager, with credit research powered by the Franklin Templeton alliance.","新加坡元短债基金，为 SG 通道投资者提供本币短端工具（注意与美元短债的币种差异）。":"An SGD short-duration fund giving SG-channel investors a home-currency short-end tool (note the currency difference vs USD short bonds).","超短久期美元债基金，久期 1 年以内，利率敏感性最低。":"An ultra-short USD bond fund, sub-1-year duration, with minimal rate sensitivity.","全球多部门债券策略（政府+IG信用+新兴市场债），PIMCO 旗舰收益产品；月度派息份额。":"A global multi-sector bond strategy (governments + IG credit + EM debt), PIMCO's flagship income product; monthly-distribution share class.","灵活久期的全球收益策略，通过信用与利差而非久期获取收益。":"A flexible-duration global income strategy earning via credit and spreads rather than duration.","多部门分散收益的 SG 通道对应份额。":"The SG-channel share class of the diversified multi-sector income strategy.","全球投资级信用债组合，与总报告\"看好投资级、短久期优先\"的观点直接对应。":"A global IG credit portfolio directly expressing the main report's \"favor IG, short duration first\" view.","债券打底+小比例股票增强的平衡策略，波动目标低于均衡股票组合。":"A bond-core strategy with a small equity kicker, targeting volatility below a balanced equity portfolio.","亚太股债混合收益，管理人深耕中国市场，兼具估值纪律。":"Asia-Pacific equity-bond income from a manager deep in Chinese markets, with valuation discipline.","亚太多元资产收益策略，覆盖股票、债券、REITs 等多元收益源。":"An Asia-Pacific multi-asset income strategy spanning equities, bonds and REITs.","SG 通道的平衡收益对应份额。":"The SG-channel balanced-income counterpart.","亚洲收益型多元策略，富敦（淡马锡系）的亚洲本地研究支撑。":"An Asian income multi-asset strategy backed by Fullerton's (Temasek-linked) on-the-ground Asian research.","标注":"Fields marked","的字段为待接入数据。":"await data integration.","BlackRock 贝莱德":"BlackRock","Schroders 施罗德":"Schroders","GF Fund Management 广发":"GF Fund Management","JPMorgan 摩根":"JPMorgan","Capital Group 资本集团":"Capital Group","Ninety One 天利":"Ninety One","Taikang 泰康":"Taikang","中国人寿富兰克林":"China Life Franklin","United 联合海外":"UOB Asset Management","HSBC 汇丰投资":"HSBC Asset Management","PIMCO 太平洋投资":"PIMCO","Neuberger Berman 路博迈":"Neuberger Berman","BNY Mellon 纽约梅隆":"BNY Mellon","Value Partners 惠理":"Value Partners","BEA Union 东亚联丰":"BEA Union Investment","Fullerton 富敦":"Fullerton Fund Management","Allianz GI 安联投资":"Allianz Global Investors","GitHub 仓库":"GitHub repo","全球宏观与资产配置分析（上级报告）":"Global Macro & Asset Allocation Analysis (parent report)"};</script>
+<script>
+/* ================================================================
+   数据层：22 只精选基金（唯一需要维护的数组）
+   data 字段当前为占位"待补"；接入晨星 Direct/官网数据后填入并
+   更新 asOf 日期即可，页面渲染与对比表自动跟随。
+================================================================ */
+const TODO = '待补';
+const GROUPS = [
+  {k:'glb',   sec:'equity', name:'全球股票', en:'Global equities',
+   map:'对应观点：<b>景气牛由盈利驱动</b>——全球股票是组合的长期中枢，用系统化选股与高股息因子增强防御性。',
+   funds:[
+     {side:'HK', house:'BlackRock 贝莱德', name:'贝莱德系统分析环球股票高息基金', en:'BlackRock Systematic International Equity High Dividend Fund', isin:'—',
+      role:'用系统化多因子模型在全球发达市场选高质量+高股息股票，兼攻兼守；高息因子在利率高位环境提供现金流缓冲。'},
+     {side:'HK', house:'Schroders 施罗德', name:'施罗德环球基金系列-环球持续增长', en:'Schroder Global Sustainable Growth Fund', isin:'—',
+      role:'全球成长型策略，质量成长股为主，适合作为全球股票配置中偏进攻的一翼。'},
+     {side:'HK', house:'GF Fund Management 广发', name:'广发全球精选股票基金', en:'GF Global Selected Equity Fund', isin:'—',
+      role:'中资管理人的全球精选策略，选股灵活、不锚定基准；兼具中国管理人视角。'},
+     {side:'SG', house:'Fullerton 富敦', name:'Fullerton Lux Fund-Global Absolute Alpha', en:'Fullerton Lux Fund - Global Absolute Alpha', isin:'—',
+      role:'全球多空/绝对收益型股票策略，目标是低相关的绝对回报，适合替代部分传统多头的敞口。'},
+   ]},
+  {k:'asia',  sec:'equity', name:'亚洲&新兴市场股票', en:'Asia & EM equities',
+   map:'对应观点：<b>亚太收益与分散化</b>——亚洲高息资产提供股息保护，新兴市场对应估值期权与美元信用对冲需求。',
+   funds:[
+     {side:'HK', house:'JPMorgan 摩根', name:'摩根亚洲股票高息基金', en:'JPMorgan Asia Pacific High Dividend Equity Fund', isin:'—',
+      role:'亚太（日本除外为主）高股息股票组合，股息率显著高于全球平均；在利率高位环境里"以息养跌"。'},
+     {side:'HK', house:'Capital Group 资本集团', name:'资本集团新世界基金（卢森堡）', en:'Capital Group New World Fund (Luxembourg)', isin:'—',
+      role:'聚焦新兴市场与世界变革主题（基础设施、消费升级等），长线新兴市场成长敞口。'},
+     {side:'SG', house:'Allianz GI 安联投资', name:'Allianz Oriental Income Fund', en:'Allianz Oriental Income Fund', isin:'—',
+      role:'亚洲收入型策略，股票+可转债+股息多源收益，波动低于纯股票组合。'},
+   ]},
+  {k:'gold',  sec:'equity', name:'行业（黄金主题）', en:'Gold-mining equities',
+   map:'对应观点：<b>黄金回调分批配置</b>——金矿股是带经营杠杆的黄金敞口，波动大于金价本身，适合作为黄金观点的进攻表达。',
+   funds:[
+     {side:'HK', house:'BlackRock 贝莱德', name:'贝莱德世界黄金基金', en:'BlackRock World Gold Fund', isin:'LU0055631609',
+      role:'全球金矿股基金（Barrick/Newmont/Agnico 为前三大持仓），净值弹性约为金价的两倍；与央行购金主线共振。'},
+     {side:'SG', house:'Ninety One 天利', name:'Ninety One GSF Glb Gold', en:'Ninety One GSF Global Gold', isin:'—',
+      role:'与贝莱德世界黄金同功能的全球金矿股策略，SG 通道的对应选项。'},
+   ]},
+  {k:'short', sec:'bond', name:'美元短债', en:'USD short duration',
+   map:'对应观点：<b>美债短端积极配置（2–5年）</b>——短久期锁定 4%+ 票息，对期限溢价免疫，再投资风险低。',
+   funds:[
+     {side:'HK', house:'Taikang 泰康', name:'泰康开泰海外短期债券基金', en:'Taikang Kaitai Overseas Short Duration Bond Fund', isin:'—',
+      role:'美元投资级短债组合，久期通常 1–2 年，主打"类现金+"收益。'},
+     {side:'HK', house:'中国人寿富兰克林', name:'中国人寿富兰克林环球基金-短期债券基金', en:'China Life Franklin Global Fund - Short Duration Bond Fund', isin:'—',
+      role:'中资保险系管理人的美元短债策略，信用研究资源来自 Franklin Templeton 联盟。'},
+     {side:'SG', house:'United 联合海外', name:'United SGD Fund MDis', en:'United SGD Fund MDis', isin:'—',
+      role:'新加坡元短债基金，为 SG 通道投资者提供本币短端工具（注意与美元短债的币种差异）。'},
+     {side:'SG', house:'HSBC 汇丰投资', name:'HSBC GIF Ultra Short Duration Bond', en:'HSBC GIF Ultra Short Duration Bond', isin:'—',
+      role:'超短久期美元债基金，久期 1 年以内，利率敏感性最低。'},
+   ]},
+  {k:'widb',  sec:'bond', name:'全球债券', en:'Global bonds',
+   map:'对应观点：<b>信用债防御持有（投资级）</b>——用投资级信用与全球化利差获取比短债略高的收益，但不拉长久期。',
+   funds:[
+     {side:'HK', house:'PIMCO 太平洋投资', name:'PIMCO GIS 收益基金 MDis', en:'PIMCO GIS Income Fund MDis', isin:'—',
+      role:'全球多部门债券策略（政府+IG信用+新兴市场债），PIMCO 旗舰收益产品；月度派息份额。'},
+     {side:'HK', house:'Neuberger Berman 路博迈', name:'NB 策略收益基金 MDis', en:'Neuberger Berman Strategic Income Fund MDis', isin:'—',
+      role:'灵活久期的全球收益策略，通过信用与利差而非久期获取收益。'},
+     {side:'SG', house:'PIMCO 太平洋投资', name:'PIMCO GIS Divers Inc E USD Inc', en:'PIMCO GIS Diversified Income E USD Inc', isin:'—',
+      role:'多部门分散收益的 SG 通道对应份额。'},
+     {side:'SG', house:'BNY Mellon 纽约梅隆', name:'BNY Mellon Global Credit USD', en:'BNY Mellon Global Credit USD', isin:'—',
+      role:'全球投资级信用债组合，与总报告"看好投资级、短久期优先"的观点直接对应。'},
+   ]},
+  {k:'mix',   sec:'mix', name:'股债多元收益', en:'Multi-asset income',
+   map:'对应观点：<b>滞胀环境中的防御性收益</b>——股债双源收益+动态资产配置，作为组合的中间层。',
+   funds:[
+     {side:'HK', house:'PIMCO 太平洋投资', name:'PIMCO 收益及增长基金', en:'PIMCO GIS Income & Growth Fund', isin:'—',
+      role:'债券打底+小比例股票增强的平衡策略，波动目标低于均衡股票组合。'},
+     {side:'HK', house:'Value Partners 惠理', name:'惠理亚洲股债收益基金', en:'Value Partners Asian Equity and Bond Income Fund', isin:'—',
+      role:'亚太股债混合收益，管理人深耕中国市场，兼具估值纪律。'},
+     {side:'HK', house:'BEA Union 东亚联丰', name:'东亚联丰亚太区多元收益基金', en:'BEA Union Asia Pacific Multi-Asset Income Fund', isin:'—',
+      role:'亚太多元资产收益策略，覆盖股票、债券、REITs 等多元收益源。'},
+     {side:'SG', house:'PIMCO 太平洋投资', name:'PIMCO GIS Bal Inc & Gr E USD', en:'PIMCO GIS Balanced Income & Growth E USD', isin:'—',
+      role:'SG 通道的平衡收益对应份额。'},
+     {side:'SG', house:'Fullerton 富敦', name:'Fullerton Asia Income Return B', en:'Fullerton Asia Income Return B', isin:'—',
+      role:'亚洲收益型多元策略，富敦（淡马锡系）的亚洲本地研究支撑。'},
+   ]},
+];
+
+const FIELDS = [
+  ['nav','净值'],['ytd','年初至今'],['y1','近1年'],['y3','近3年'],
+  ['fee','经常性开支'],['rating','晨星评级'],['aum','规模(美元)']
+];
+const PORTFOLIOS = [
+  {name:'稳健型', en:'Conservative', badge:'bg-pos', w:['美元短债 55%','全球债券 25%','股债多元收益 15%','全球股票 5%'],
+   note:'防御为主：短端锁票息，黄金/股票仅作点缀。'},
+  {name:'平衡型', en:'Balanced', badge:'bg-warn', w:['美元短债 25%','全球债券 20%','股债多元收益 20%','全球股票 20%','亚洲&黄金 15%'],
+   note:'攻守平衡：债券打底，全球与亚太股票提供盈利敞口。'},
+  {name:'进取型', en:'Growth', badge:'bg-neg', w:['全球股票 35%','亚洲&黄金 25%','股债多元收益 20%','全球债券 10%','美元短债 10%'],
+   note:'进攻为主：股票与黄金行业主导，债券仅作流动性缓冲。'},
+];
+
+/* ================================================================
+   渲染层
+================================================================ */
+const $ = s => document.querySelector(s);
+function h(tag, cls, html){
+  const e = document.createElement(tag);
+  if(cls) e.className = cls;
+  if(html !== undefined) e.innerHTML = html;
+  return e;
+}
+
+function renderGroups(){
+  ['equity','bond','mix'].forEach(s=>{
+    const b = $('#grp-'+s);
+    if(b) b.textContent = '';
+  });
+  GROUPS.forEach(g=>{
+    const box = $('#grp-'+g.sec);
+    const grp = h('div','grp');
+    const head = h('div','grp-head');
+    head.appendChild(h('h3','', g.name+' <span class="badge bg-neutral">'+g.funds.length+'只</span>'));
+    head.appendChild(h('div','grp-map', g.map));
+    grp.appendChild(head);
+    const grid = h('div','fgrid');
+    g.funds.forEach(f=>{
+      const c = h('div','fcard');
+      c.appendChild(h('div','f-top',
+        '<div><div class="f-name">'+LT(f.name)+(f.en && LANG==='zh' ? '<div class="f-house">'+f.house+' · '+f.en+'</div>' : (LANG==='en' ? '<div class="f-house">'+f.house+'</div>' : ''))+'</div></div>'+
+        '<span class="side '+(f.side==='HK'?'side-hk':'side-sg')+'">'+f.side+'</span>'));
+      c.appendChild(h('div','f-role', LT(f.role)));
+      const facts = h('div','facts');
+      FIELDS.forEach(k=>{
+        const row = h('div','fact');
+        row.innerHTML = '<span class="k">'+k[1]+'</span><span class="v todo">'+TODO+'</span>';
+        facts.appendChild(row);
+      });
+      c.appendChild(facts);
+      const isinTxt = f.isin==='—' ? (LANG==='en'?'TBD':f.isin) : f.isin;
+      c.appendChild(h('div','note-src','ISIN: '+isinTxt+(LANG==='en'?' · source & as-of date to follow':' · 数据接入后将标注口径与日期')));
+      grid.appendChild(c);
+    });
+    grp.appendChild(grid);
+    box.appendChild(grp);
+  });
+}
+
+function renderCmp(){
+  const t = $('#cmpTable');
+  let html = '<tr><th>基金</th><th>通道</th>';
+  FIELDS.forEach(k=> html += '<th>'+k[1]+'</th>');
+  html += '</tr>';
+  GROUPS.forEach(g=> g.funds.forEach(f=>{
+    html += '<tr><td class="v">'+LT(f.name)+'</td><td>'+f.side+'</td>';
+    FIELDS.forEach(k=> html += '<td class="todo">'+TODO+'</td>');
+    html += '</tr>';
+  }));
+  t.innerHTML = html;
+  $('#cmpNote').textContent = '注：数据接入后此表支持按列排序；星级为晨星口径（过往表现评级，非未来收益预测）。';
+}
+
+function renderPortfolios(){
+  const box = $('#portfolioGrid');
+  box.textContent = '';
+  PORTFOLIOS.forEach(p=>{
+    const c = h('div','card');
+    c.innerHTML = '<h3>'+p.name+' <span class="badge '+p.badge+'">'+p.en+'</span></h3>';
+    p.w.forEach(w=> c.appendChild(h('div','fact','<span class="k">'+w+'</span>')));
+    c.appendChild(h('div','f-role', p.note));
+    box.appendChild(c);
+  });
+}
+
+/* ================================================================
+   i18n 中英切换（与主报告同机制）
+================================================================ */
+const LANG_TEXT = window.GMR_I18N || {};
+const LT = s => (LANG==='en' ? (LANG_TEXT[s] || s) : s);
+let LANG = 'zh';
+let zhTitle = null;
+const langBtn = $('#langBtn');
+const CJK = /[⺀-鿿　-〿＀-￯]/;
+function applyLangText(){
+  if(LANG==='en'){
+    if(zhTitle===null) zhTitle = document.title;
+    if(LANG_TEXT[zhTitle]) document.title = LANG_TEXT[zhTitle];
+  } else if(zhTitle!==null){
+    document.title = zhTitle; zhTitle = null;
+  }
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+    acceptNode(n){
+      const p = n.parentElement;
+      if(!p) return NodeFilter.FILTER_REJECT;
+      const t = p.tagName;
+      if(t==='SCRIPT'||t==='STYLE'||t==='NOSCRIPT'||t==='TEXTAREA') return NodeFilter.FILTER_REJECT;
+      if(p.closest('#langBtn')) return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT;
+    }
+  });
+  const nodes = [];
+  while(walker.nextNode()) nodes.push(walker.currentNode);
+  let miss = 0;
+  nodes.forEach(n=>{
+    const key = n.nodeValue.replace(/\s+/g,' ').trim();
+    if(LANG==='zh'){
+      if(n._zh){ n.nodeValue = n._zh; n._zh = null; }
+      return;
+    }
+    if(!key || !CJK.test(key)) return;
+    const rep = LANG_TEXT[key];
+    if(rep!==undefined){
+      if(!n._zh) n._zh = n.nodeValue;
+      n.nodeValue = n.nodeValue.replace(key, rep);
+    } else { miss++; }
+  });
+  if(LANG==='en' && miss) console.warn('[i18n] untranslated:', miss);
+}
+function setLang(l){
+  LANG = l;
+  try{ localStorage.setItem('gmr-lang', l); }catch(e){}
+  document.documentElement.setAttribute('lang', l==='en' ? 'en' : 'zh-CN');
+  langBtn.textContent = l==='en' ? '中' : 'EN';
+  applyLangText();
+  renderGroups(); renderCmp(); renderPortfolios();
+  applyLangText();
+}
+langBtn.addEventListener('click', ()=> setLang(LANG==='en' ? 'zh' : 'en'));
+document.addEventListener('click', ()=>{
+  if(LANG!=='en') return;
+  setTimeout(applyLangText, 0);
+}, true);
+
+/* ============ 主题 / PDF / 启动 ============ */
+const themeBtn = $('#themeBtn');
+function applyTheme(t){
+  document.documentElement.setAttribute('data-theme', t);
+  try{ localStorage.setItem('gmr-theme', t); }catch(e){}
+}
+(function initTheme(){
+  let saved=null; try{ saved = localStorage.getItem('gmr-theme'); }catch(e){}
+  if(saved) applyTheme(saved);
+  else if(matchMedia('(prefers-color-scheme: dark)').matches) applyTheme('dark');
+})();
+themeBtn.addEventListener('click', ()=>{
+  const cur = document.documentElement.getAttribute('data-theme')==='dark' ? 'dark':'light';
+  applyTheme(cur==='dark' ? 'light':'dark');
+});
+$('#pdfBtn').addEventListener('click', ()=> setTimeout(()=>window.print(), 30));
+
+renderGroups(); renderCmp(); renderPortfolios();
+(function initLang(){
+  let saved=null; try{ saved=localStorage.getItem('gmr-lang'); }catch(e){}
+  const qp = new URLSearchParams(location.search).get('lang');
+  if(qp==='en'||qp==='zh') saved=qp;
+  if(saved==='en') setLang('en');
+})();
+</script>
+</body>
+</html>
