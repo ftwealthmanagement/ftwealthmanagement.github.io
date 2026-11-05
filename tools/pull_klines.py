@@ -24,7 +24,7 @@ def main():
     out = {}
     for code, cname, key in TICKERS:
         ret, data, _ = ctx.request_history_kline(
-            code, start="2025-09-01", end="2026-10-14",
+            code, start="2025-09-01", end="2026-11-04",
             ktype=KLType.K_DAY, autype=AuType.QFQ, max_count=1000)
         if ret != RET_OK:
             print(json.dumps({"error": code + ": " + str(data)}, ensure_ascii=False))
@@ -75,10 +75,10 @@ def main():
             "name": cname, "code": code, "last_date": last_d, "last": last,
             "chg_today": pct(last, vals[-2]) if len(vals) >= 2 else None,
             "ytd": pct(last, ytd_base),
-            "ret_1m": pct(last, close_at_or_before("2026-09-14")),
-            "ret_3m": pct(last, close_at_or_before("2026-07-14")),
-            "ret_6m": pct(last, close_at_or_before("2026-04-14")),
-            "ret_1y": pct(last, close_at_or_before("2025-10-14")),
+            "ret_1m": pct(last, close_at_or_before("2026-10-04")),
+            "ret_3m": pct(last, close_at_or_before("2026-08-04")),
+            "ret_6m": pct(last, close_at_or_before("2026-05-04")),
+            "ret_1y": pct(last, close_at_or_before("2025-11-04")),
             "hi_52w": round(hi52, 2), "lo_52w": round(lo52, 2),
             "off_high": pct(last, hi52), "above_low": pct(last, lo52),
             "vol_60d_ann": round(vol, 2) if vol is not None else None,

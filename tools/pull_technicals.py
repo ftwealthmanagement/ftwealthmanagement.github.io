@@ -75,7 +75,7 @@ def main():
     out = {}
     for code, key in TICKERS:
         ret, data, _ = ctx.request_history_kline(
-            code, start="2026-01-01", end="2026-10-14",
+            code, start="2026-01-01", end="2026-11-04",
             ktype=KLType.K_DAY, autype=AuType.QFQ, max_count=1000)
         if ret != RET_OK:
             out[key] = {"error": str(data)}
