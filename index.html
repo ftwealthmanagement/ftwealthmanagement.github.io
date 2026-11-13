@@ -351,32 +351,6 @@ footer a{color:var(--ink-2)}
   <div class="c-note">如有疑问，联系飞书@donaldzhang</div>
 </header>
 
-<!-- ===================== KPI 行 ===================== -->
-<div id="kpiRow"></div>
-
-<!-- ===================== 全球主线横幅 ===================== -->
-<div id="banner">
-  <div class="b-row">
-    <div>
-      <div class="herofig">$104.4</div>
-      <div class="herocap">布伦特原油（美元/桶，11-03）<br>同比 +62%，年内高点 $120.9（4-30）</div>
-    </div>
-    <div class="b-sep"></div>
-    <div class="b-txt">
-      <b>2026年的全球宏观主线：能源再通胀 × 央行集体转鹰 × 制造业景气共振——11月中期选举再添"分裂政府"变量。</b><br>
-      伊朗战争引发的能源冲击把通胀重新推高——美国9月CPI 3.7%、欧元区9月CPI 3.8%、日本9月核心CPI重回2.1%——美联储、欧央行、日央行9月同月加息后于10月末集体按兵不动（Fed 3.75–4.00%，12月加息概率约73%；ECB 存款利率2.50%；BOJ 1.25%）。全球制造业PMI仍处<b>53.0（55个月新高，9月）</b>高位，AI资本开支与再库存周期支撑增长；中国是主要经济体中唯一的"低通胀+低利率"体（CPI约1%，LPR 3.0%连续17个月未动）。<b>11-03中期选举民主党重夺国会</b>，分裂政府意味着财政刺激落空与监管收紧（详见02章专题）。
-      <div class="chips">
-        <span class="chip">Fed 12月加息概率~73%</span>
-        <span class="chip">ECB 10-29 按兵不动</span>
-        <span class="chip">BOJ 10-30 按兵不动</span>
-        <span class="chip">10Y美债 4.95%</span>
-        <span class="chip">中期选举：民主党两院</span>
-        <span class="chip">日元 157–159</span>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- ===================== 一、总结概要 ===================== -->
 <section id="sec-sum">
   <h2 class="sec"><span class="no">01</span>整体总结概要</h2>
@@ -1096,7 +1070,7 @@ function sparkSVG(key, W, H){
   return svg;
 }
 function renderKPI(){
-  const row = $('#kpiRow'); row.textContent='';
+  const row = $('#kpiRow'); if(!row) return; row.textContent='';
   ORDER.forEach(k=>{
     const d = IDX[k];
     const tile = document.createElement('div'); tile.className='tile';
